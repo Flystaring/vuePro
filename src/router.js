@@ -12,6 +12,9 @@ Vue.use(VueRouter);
 const router = new VueRouter({
   // mode: "history",
   routes: [{
+      path: "/",
+      redirect: "/home"
+    }, {
       path: "/home",
       component: HomeContainer
     },
