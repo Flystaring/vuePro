@@ -1,7 +1,11 @@
 import Vue from 'vue'
 
 //按需导入mint-ui
-import { Header, Swipe, SwipeItem, Toast} from 'mint-ui'
+import {
+  Header,
+  Swipe,
+  SwipeItem
+} from 'mint-ui'
 Vue.component(Header.name, Header)
 Vue.component(Swipe.name, Swipe)
 Vue.component(SwipeItem.name, SwipeItem)
@@ -9,6 +13,7 @@ Vue.component(SwipeItem.name, SwipeItem)
 //导入Vue-resource
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
+Vue.http.options.root = 'http://vue.studyit.io';
 
 //导入mui
 import "./lib/mui/css/mui.css"
@@ -20,7 +25,13 @@ import "bootstrap/dist/css/bootstrap.css"
 import router from './router.js'
 import App from './App.vue'
 
-// Vue.use(Mint);
+//导入过滤器
+import moment from 'moment'
+
+//定义全局的时间过滤器
+Vue.filter("dateFormat", function (dataStr, parttern = "YYYY-MM-DD hh:mm:ss") {
+  return moment(dataStr).format(parttern);
+})
 
 
 Vue.config.productionTip = false;

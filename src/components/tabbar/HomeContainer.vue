@@ -12,14 +12,14 @@
     <ul class="mui-table-view mui-grid-view mui-grid-9">
       <!-- xs为超小屏 ≤ 400    sm为 ≥ 400 -->
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-        <a href="#">
+        <router-link to="/home/newslist">
           <img src="../../images/menu1.png" alt="">
           <div class="mui-media-body">新闻资讯</div>
-        </a>
+        </router-link>
       </li>
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
         <a href="#">
-        <img src="../../images/menu2.png" alt="">
+          <img src="../../images/menu2.png" alt="">
           <div class="mui-media-body">图片分享</div>
         </a>
       </li>
@@ -53,6 +53,8 @@
 </template>
 
 <script>
+import { Toast } from "mint-ui";
+
 export default {
   data() {
     return {
@@ -66,10 +68,10 @@ export default {
     getlunbo() {
       this.$http.get("http://vue.studyit.io/api/getlunbo").then(result => {
         var result = result.body;
-        console.log(result);
         if (result.status === 0) {
           this.getList = result.message;
-          // Toast("获取轮播失败");
+        } else {
+          Toast("获取轮播失败");
         }
       });
     }
@@ -101,10 +103,10 @@ export default {
   border: none;
   background-color: white;
 
-  .mui-table-view-cell{
+  .mui-table-view-cell {
     border: none;
 
-    img{
+    img {
       height: 60px;
       width: 60px;
     }
