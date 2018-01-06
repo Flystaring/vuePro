@@ -16,6 +16,7 @@ Vue.component(Button.name, Button)
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
 Vue.http.options.root = 'http://vue.studyit.io';
+Vue.http.options.emulateJSON = true; //application/x-www-form-urlencoded
 
 //导入mui
 import "./lib/mui/css/mui.css"
