@@ -4,11 +4,13 @@ import Vue from 'vue'
 import {
   Header,
   Swipe,
-  SwipeItem
+  SwipeItem,
+  Button
 } from 'mint-ui'
 Vue.component(Header.name, Header)
 Vue.component(Swipe.name, Swipe)
 Vue.component(SwipeItem.name, SwipeItem)
+Vue.component(Button.name, Button)
 
 //导入Vue-resource
 import VueResource from 'vue-resource'
