@@ -7,6 +7,7 @@ import ShopcarContainer from './components/tabbar/ShopcarContainer.vue'
 import SearchContainer from './components/tabbar/SearchContainer.vue'
 import NewsList from './components/newslist/NewsList.vue'
 import NewsInfo from './components/newslist/NewsInfo.vue'
+import PhotosList from './components/photos/PhotosList.vue'
 
 Vue.use(VueRouter);
 
@@ -39,6 +40,10 @@ const router = new VueRouter({
     {
       path: "/home/newslist/newsinfo/:id",
       component: NewsInfo
+    },
+    {
+      path:"/home/photoslist",
+      component:PhotosList
     }
   ],
   linkActiveClass: "mui-active"
