@@ -29,6 +29,10 @@ Vue.http.options.emulateJSON = true; //application/x-www-form-urlencoded
 import "./lib/mui/css/mui.css"
 import "./lib/mui/css/icons-extra.css"
 
+//导入缩列图插件
+import VuePreview from 'vue-preview'
+Vue.use(VuePreview)
+
 //导入bootstrap
 import "bootstrap/dist/css/bootstrap.css"
 

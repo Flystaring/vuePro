@@ -8,6 +8,7 @@ import SearchContainer from './components/tabbar/SearchContainer.vue'
 import NewsList from './components/newslist/NewsList.vue'
 import NewsInfo from './components/newslist/NewsInfo.vue'
 import PhotosList from './components/photos/PhotosList.vue'
+import PhotosInfo from './components/photos/PhotosInfo.vue'
 
 Vue.use(VueRouter);
 
@@ -44,6 +45,10 @@ const router = new VueRouter({
     {
       path:"/home/photoslist",
       component:PhotosList
+    },
+    {
+      path:"/home/photoinfo/:id",
+      component:PhotosInfo
     }
   ],
   linkActiveClass: "mui-active"
