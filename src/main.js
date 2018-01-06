@@ -1,18 +1,23 @@
 import Vue from 'vue'
 
 //按需导入mint-ui
-import {
-  Header,
-  Swipe,
-  SwipeItem,
-  Button,
-  Lazyload
-} from 'mint-ui'
-Vue.component(Header.name, Header)
-Vue.component(Swipe.name, Swipe)
-Vue.component(SwipeItem.name, SwipeItem)
-Vue.component(Button.name, Button)
-Vue.use(Lazyload)
+// import {
+//   Header,
+//   Swipe,
+//   SwipeItem,
+//   Button,
+//   Lazyload
+// } from 'mint-ui'
+// Vue.component(Header.name, Header)
+// Vue.component(Swipe.name, Swipe)
+// Vue.component(SwipeItem.name, SwipeItem)
+// Vue.component(Button.name, Button)
+// Vue.use(Lazyload)
+
+//懒加载需要全局导入mint-ui
+import MintUI from 'mint-ui'
+Vue.use(MintUI)
+import 'mint-ui/lib/style.css'
 
 //导入Vue-resource
 import VueResource from 'vue-resource'
