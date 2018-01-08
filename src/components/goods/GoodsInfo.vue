@@ -90,6 +90,12 @@ export default {
           this.goodsinfo = result.body.message[0];
         }
       });
+    },
+    goDesc(id) {
+      this.$router.push({ name: "goodsdesc", params: { id: id } });
+    },
+    goComment(id) {
+      this.$router.push({ name: "goodscomment", params: { id: id } });
     }
   },
   components: {
