@@ -2,12 +2,7 @@
   <div>
 
     <!-- 轮播图区域 -->
-    <mt-swipe :auto="3000">
-      <mt-swipe-item v-for="item in getList" :key="item.img">
-        <img :src="item.img" alt="">
-      </mt-swipe-item>
-    </mt-swipe>
-
+    <swiper :lunbotuList="lunbotuList" :isfull="true"></swiper>
     <!-- 六宫格 -->
     <ul class="mui-table-view mui-grid-view mui-grid-9">
       <!-- xs为超小屏 ≤ 400    sm为 ≥ 400 -->
@@ -24,10 +19,10 @@
         </router-link>
       </li>
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-        <a href="#">
+        <router-link to="/home/goodslist">
           <img src="../../images/menu3.png" alt="">
           <div class="mui-media-body">商品购买</div>
-        </a>
+        </router-link>
       </li>
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
         <a href="#">
@@ -54,11 +49,12 @@
 
 <script>
 import { Toast } from "mint-ui";
+import swiper from "../subcomponents/Swiper.vue";
 
 export default {
   data() {
     return {
-      getList: []
+      lunbotuList: []
     };
   },
   created() {
@@ -69,12 +65,15 @@ export default {
       this.$http.get("http://vue.studyit.io/api/getlunbo").then(result => {
         var result = result.body;
         if (result.status === 0) {
-          this.getList = result.message;
+          this.lunbotuList = result.message;
         } else {
           Toast("获取轮播失败");
         }
       });
     }
+  },
+  components: {
+    swiper
   }
 };
 </script>

@@ -9,6 +9,8 @@ import NewsList from './components/newslist/NewsList.vue'
 import NewsInfo from './components/newslist/NewsInfo.vue'
 import PhotosList from './components/photos/PhotosList.vue'
 import PhotosInfo from './components/photos/PhotosInfo.vue'
+import GoodsList from './components/goods/GoodsList.vue'
+import GoodsInfo from './components/goods/GoodsInfo.vue'
 
 Vue.use(VueRouter);
 
@@ -49,6 +51,16 @@ const router = new VueRouter({
     {
       path:"/home/photoinfo/:id",
       component:PhotosInfo
+    },
+    {
+      path:"/home/goodslist",
+      component:GoodsList
+    },
+    {
+      path:"/home/goodsinfo/:id",
+      component:GoodsInfo,
+      name:"goodsinfo"
+
     }
   ],
   linkActiveClass: "mui-active"
