@@ -1,0 +1,22 @@
+1.ESlint配置需要在当根目录下新建.eslintrc.js文件;如果当前目录没有该文件就会向上寻找直到结束;
+
+2.有时候代码里有些特殊情况需要我们在某一行或者某几行关闭ESLint检测，可以使用注释：
+下面的代码会关闭所有规则
+/* eslint-disable */
+alert('foo');
+/* eslint-enable */
+
+下面的代码会关闭某一行的所有规则
+alert('foo'); // eslint-disable-line
+
+下面的代码在某一行关闭指定的规则
+alert('foo'); // eslint-disable-line no-alert
+
+3.在vscode下.eslintignore必须放在根目录下才会起作用;即当前文件夹的根目录
+
+4.可以在js中定义全局变量/*global Vue*/,这样就不会报错,未定义;
+也可以在.eslintrc中定义:
+  "globals":{
+        "Vue":true
+    }
+

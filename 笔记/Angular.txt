@@ -1,0 +1,99 @@
+1.ng-app:选择angular去管理那一部分html代码,管理的是ng-app所在的元素的子元素及本身
+
+2.ng-click:用来注册事件
+
+3.ng-model:可以指定一个属性值,这个属性值就表示当前文本框的value值
+
+4.在angular中如果在对象空间中的一个值发生改变,则angular会读取整个对象空间的值,不管他有没有改变,都会读取一次,这称为脏读或脏检查.实现数据的双向绑定;
+
+5.ng-init:可以对数据进行初始化,给一个默认值
+
+6.创建模块:
+angular.module(“模块名”,[]);
+注意:如果不依赖其他模块,也需要提供一个空的数组,不然就是调用模块
+需要在ng-app指定的属性值上写我们的模块的名字;
+
+7.控制器:
+创建控制器:模块名.controller(“控制器的名字”,function($scope){});
+如果需要改变页面的{{testName}}的值,就直接改变$scope.testName值就可以;
+要显示数据模型的值,就要在他所在的标签或者父标签上加上ng-controller=“控制器名字”
+
+8.ng-repeat=“list in test”
+重复元素
+当遍历数组时有重复元素:”list in test track by $index”
+$index是索引,内置属性;
+当需要对象的键名时:”(key,list) in test”.
+
+9.使用构造函数模式创建控制器;
+app.controller(“demo”,function(){
+	this.name = “jack”
+});
+ng-controller = “demo as ctrl”
+{{ctrl.name}}
+
+app.controller(“demo”,[“$scope”,”$log”,function($scope,$log){
+	$scope.name = “jack”
+}]);
+
+10.ng-class:{red:判断语句(逻辑值),className:逻辑值}
+但是单纯的class属性是class={{}};
+
+11.ng-show=“逻辑值”
+ng-hide=“逻辑值”
+
+12.ng-if为true时,显示;
+为false时,直接删除dom结构;
+当需要频繁切换显示与隐藏时,建议使用ng-show,ng-if建立在操作dom的基础上,比较耗费性能;
+
+13.ng-switch=“name”
+ng-switch-when=“string”;
+
+14.创建自定义指令
+注意大写时,需要加横杠;
+app.directive(“myBtn”,[function(){
+    //直接return
+    return {…}
+}])
+<div “my-btn”><div>
+
+template
+1)template:”…”;
+2)templateUrl:”url”:需要提供一个html路径,angular会发送ajax请求请求数据
+3)在script标签中写html,需要提供id=“tpl” type=“text/ng-template”
+templateUrl:”tpl”;
+
+restrict:”ACE”;A:以属性的方法使用自定义指令;C以类名的方式使用自定义指令;E(element):以自定义标签的形式使用;
+
+replace:”逻辑值”;当为true时,模板会被用来代替自定义
+
+transclude:true;为true时,会把自定义标签中的内容插入到模板中拥有ng-transclude指令标签的中间;
+
+scope:{
+  
+}
+需要一个对象,可以用来获取自定义指令属性值
+给当前对象添加一个属性(如:tmp),属性值以@开头,后面跟上自定义指令属性,
+然后就可以在模板中使用{{tmp}}来得到对应的属性值
+简写:mystyle:”@”;
+
+link:每次遇到对应的指令就会触发一次;
+link:function(scope,element,attributes){
+   scope.msg = “”;
+   element//一个jqLite对象,指向模板最外层标签,如果没有replace,指向指令所在标签,可以直接使用jq部分方法
+   attributes//打印的是自定义指令的所有的属性
+}
+
+15.过滤器:
+currency,
+limitTo,
+date,
+orderBy:”+”//按从小到大排序,”-”按从大到小排序;
+filter
+涉及到大量切换元素显隐时,用ng-show;
+不涉及到切换元素显隐时,用ng-if;
+
+16.$scope.$watch(“”,function(now,old){})//第一个参数是变化后的值.第二个参数是变化前的值;监听前会默认执行一次,我们能监听的是$scope下的属性;
+$watch也会监视$scope属性中的方法的返回值
+$scope.getAge()
+$scope.$watch(“getAge()”,function(nowtest,oldtest){});
+如果需要监视全局的方法和属性,那么可以让该属性和方法赋值给$scope的某个方法和属性;

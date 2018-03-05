@@ -1,0 +1,175 @@
+1.node中调用模块使用require();可以使用路径而不使用模块名来应用模块,除非一些核心模块,否则最后都是把模块名转化成路径;node取消了javascript默认的全局名称空间,而用commonJS模块系统取而代之,需要时,利用require加载,这样可以更好的阻止代码,避免了一些安全性问题和错误.
+
+2.导出自定义模块
+module.exports;可以导出函数,变量;
+
+3.终端node服务器运行js语法:node name.js;
+
+4.node的核心模块是以二进制编写的,只能用模块名来加载,不能使用路径;有第三方模块与核心模块名相同,也是先加载核心模块.加载文佳模块时,可以不写后缀名.js;var myModule = require(“./myModuleDir”)加载文件夹模块,node会假定该文件夹是一个包,并试图查找包定义,包定义包含在名为package.json,如果不存在该文件,那么入口点会假定为默认值index.js(除了index.js还会查找index.node,.node文件是node中的二进制扩展包)
+
+5.缓存模块:模块在首次加载时会被缓存起来,即模块的初始化只执行一次,即便你多次加载该模块.
+
+6.node引入一个二进制缓冲区实现,该实现以Buffer伪类中的JavaScript API形式暴露给外界,缓冲区的长度以字节为单位,可以随机设置和获取缓冲区的数据;Buffer类的另一个特别之处是数据占用的内存不是分配在JavaScript VM内存堆中,也就是说这些对象不会被垃圾收集算法处理,他会占据一个不会被修改的永久的内存地址,这避免了因缓冲区内容的内存复制所造成的CPU浪费.
+
+7.缓冲区的创建:var but = new Buffer(‘hello’);使用utf-8编码格式的字符串来创建缓冲区;
+只要指定编码格式作为构造函数的第二个参数,也可以用其他编码格式(ascii,utf8,base64)的字符串创建缓冲区;
+如果缓冲区没有具体内容初始化,可以指定容量大小来创建,以备将来容纳数据,var buf = new Buffer(1024);
+当创建一个已经被初始化的缓冲区(var buf = new Buffer(1024))时,这个缓冲区包含的值并非是0,而是一些随机值.
+
+8.切分缓冲区:使用slice方法可以切分缓冲区,但是此时hcq并没有分配新的内存,也没有任何复制,只不过引用了父缓冲区不同的起始位置和结束位置,这个意思是,如果程序修改了父缓冲区,并且修改只要影响到子缓冲区的范围内的数据,那么子缓冲区也会被修改;其次,在用这种方法从父缓冲区创建一个较小的子缓冲区时,父缓冲区在操作结束后依然继续保留,并不会被垃圾收集器回收,如果不谨慎处理,会导致内存泄漏.可以使用copy方法代替slice方法.
+
+9.复制缓冲区:将一个缓冲区(Buffer1)的一部分复制到另一个缓冲区(Buffer2),Buffer1.copy(Buffer2,targetStart,sourceStart,sourceEnd);targetStart是指Buffer2的将要存储资源的初始位置,sourceStart,sourceEnd是指复制资源的初始位置和结束位置.
+
+10.缓冲区解码:利用toString方法可以让缓冲区的编码方式相互转化(utf8—base64).
+
+11.应用事件API:.addListener和.on:为指定类型的事件添加事件监听器;
+.once:为指定的事件绑定一个仅会调用一次的事件监听器
+.removeEventListener:删除绑定到指定事件上的某个指定的事件监听器
+.removeAllEventListener:删除绑定到指定事件上的所有事件监听器
+
+12.process.nextTick()可以将一个非关键的性的任务推迟到事件循环的下一轮再执行.process是node中为数不多的全局对象
+
+13.I/O操作和setInterval()一起使用时,无法保证在任意时刻只有一个挂起的调用,但可以使用递归函数和setTimeout()函数来规避这个潜在的问题.
+
+14.在node中对路径的处理,用path模块对路径规范化处理.
+
+路径的格式化处理:
+path.format();//obj->string;
+path.parse();//string->obj; 
+
+规范化路径:
+path.normalize(“/foo/bar//baz/asdf/quux/..”);//=>”foo/bar/baz/asdf”
+
+连接路径:
+path.join(“/foo”,”bar”,”baz/asdf”,”quux”,”..”);//=>”foo/bar/baz/asdf”
+path.join不仅可以连接任意多个路径字符串,同时也可以对路径进行规范化.
+
+解析路径:
+path.resolve()
+
+查找两个绝对路径之间的相对路径:
+path.relative(‘data/orandea/test/aaa’,’data/orandea/impl/bbb’);//=>../../impl/bbb
+
+提取路径组成部分:
+以路径/foo/bar/myfile.txt为例,想要获取文件的父目录内容,获取读取相同目录下的其他文件使用
+
+path.dirname(‘/foo/bar/baz/asdf/quux.txt’);//=>/foo/bar/baz/asdf
+有些情况,想要从文件路径中提取文件名,即文件路径的最后一部分,此时使用path.basename
+
+path.basename(“/foo/bar/baz/asdf/quux.html”);//=>quux.html;
+文件路径可能还包括一个扩展名,可以将扩展名传递给basename函数,作为其可选的第二个参数,以此在文件名中提取扩展名
+
+path.basename(“/foo/bar/baz/asdf/quux.html”,”.html”);//=>quux;
+按照这种方式,必须事先知道扩展名,使用path.extname()获取扩展名
+
+path.extname(“a/b/index.html”);=>”.html”;
+
+path.extname(“a/b.c/index”);//=>””;
+
+path.extname(“a/b.c/.”);//=>””;
+
+确定路径是否存在:
+path.exists(“/etc/passwd”,function(exists){
+	console.log(“exists:”,exists);//=>true
+})
+在node 0.8时用fs.exists函数代替了path.exists函数,两者在语义上没有任何区别,但是为了使用fs函数,必须导入fs模块.
+因为path.exists函数进行了I/O操作,因此它是异步的,所以必须要向其传递一个回调函数,当I/O操作结束时,通知这个回调函数.如果不用回调,可以使用同步版本path.existsSync()函数,功能完全一样,只是它不使用回调.直接返回结果.
+
+15.fs模块存放了所有的文件查询和操作的函数,利用这个函数,可以查询文件的统计信息,打开文件,读写文件和关闭文件.
+fs.stat(“/etc/passwd”,function(err,stats){}):查询文件统计信息
+fs.stat函数调用会将stats类的一个实例(参数stats)返回给其回调函数,可以用这个实例调用一下函数:
+stats.isFile():判断是否是标准文件;
+
+stats.isDirectory():判断是否是目录;
+
+stats.isBlockDevice():判断是否是块设备;
+
+stats.isCharacterDevice():判断是否是字符设备;
+
+stats.isSymbolicLink():判断是否是符号链接;
+
+stats.isFifo():判断是否是FIFO(UNIX中一种特殊类型的命名管道);
+
+stats.isSocket():判断是否是UNIX套接字;
+
+atime:”Access Time”访问时间;
+
+mtime:”Modified Time”:文件数据发生变化的时间
+
+ctime:”Change Time”文件的状态信息发生变化的时间(比如文件的权限)
+
+birthtime:文件创建时间
+
+打开文件:
+fs.open(“/etc/passwd”,”r”,function)
+open函数的第一个参数是路径,第二个是标志位,表明文件以何种模式(“r”,”r+”,”w”,”w+”,”a”,”a+”)打开
+r:打开文件进行 读取,位置位于文件起始处;
+r+:打开文件进行 读写,位置位于文件起始处;
+w:如果文件存在,将其清零,如果文件不存在,创建文件,写入数据,位置位于文件起始处;
+w+:打开文件进行读写,如果文件存在,将其清零,如果文件不存在,创建文件,写入数据,位置位于文件起始处;
+a:打开文件写入数据,如果文件存在,将其清零,如果文件不存在,创建文件,写入数据,位置位于文件结尾处,此后写操作都将数据追加到文件结尾处;
+a+:打开文件进行读写,如果文件存在,将其清零,如果文件不存在,创建文件,写入数据,位置位于文件结尾处,此后写操作都将数据追加到文件结尾处;
+fs.read(fd,Buffer,offset,length,fileposition,function(err,readBytes)):文件写入缓冲区操作;
+fileposition(integer)指定文件读取的起始位置,如果该项为null,将从当前文件指针的位置开始读取数据。
+注意:一旦将缓冲区传递给fs.open()函数,缓冲区的控制权就转交给了read命令,只有在回调函数被调用之后,缓冲区的控制权才会返回给你.在此之前不应该对该缓冲区进行读写或让其他函数调用该缓冲区,否则写入数据不完整,更糟的情况是可能并发的往缓冲区写入数据;
+
+fs.readFile(path,编码,callback);//如果有第二个参数并且是编码,那么回调函数就会获取到的数据就是字符串;如果没有第二个参数,获取到的就是Buffer实例对象
+
+fs.writeFile(path,内容,编码,回调)
+
+16.process.nextTick方法指定的回调函数，总是在当前"执行栈"的尾部触发,如果有多个process.nextTick语句（不管它们是否嵌套），将全部在当前"执行栈"执行。
+
+17.退出repl(read-eval-print-loop):.exit
+
+18.console.log(__filename)//包含文件名称的全路径
+
+console.log(__dirname)//文件的路径(不包含文件的名称)
+
+console.log(process.argv)//argv是一个数组,默认情况下,前两项是
+1)node.js环境路径
+2)当前执行js文件的全路径
+3)从第三个参数开始表示命令参数;
+
+19.传统非模块化开发的缺点:
+1)命名冲突
+2)文件依赖
+
+服务器端的模块化规范:
+1)CommonJS-node.js 
+
+20.如果要导出单个的成员,一般使用exports
+如果要导出成员比较多,一般使用module.exports,可以把所有方法和属性用一个对象保存,然后赋值给module.exports
+这两种方式不能同时使用,如果一起使用,以module.exports为准
+
+21.模块查找不加扩展名,会按照以下后缀查看,.js,.json,.node
+
+22.从数组和对象中提取值，对变量进行赋值，这被称为解构
+
+23.let readStream = fs.createReadStream(path);//输入流
+let writeStream = fs.createWriteStream(path);//输出流
+
+readStream.on(“data“,(chunk)=>{
+  writeStream.write(chunk);
+})
+readStream.on(“end”,()=>{
+  console.log(“文件处理完成”);
+})
+或者
+readStream.pipe(writeStream);
+
+24.fs.mkdir(path,callback);//创建目录
+fs.readdir(path,(err,files));//读取目录
+fs.rmdir(path,callback);//删除目录
+
+25.创建服务器:
+http.createServer((req,res)=>{{
+   res.end(“ok”)
+}).listen(3000,”192.168.0.21”,()=>{
+   console.log(“running…”)	
+})
+
+req:是http.IncomingMessage的实例对象
+res:是http.ServerResponse的实例对象
+
+res.write();//向客户端响应内容,可以写多次
+res.end();//用来完成响应,只能执行一次

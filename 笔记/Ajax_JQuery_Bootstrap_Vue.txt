@@ -1,0 +1,364 @@
+Ajax:
+1.Ajax:Ajax技术主要要做的事情就是向服务器发送请求,去获取服务器的数据;
+ 
+2.服务器:提供服务的一台电脑,这台电脑上一般安装Linux,unix操作系统,并且在操作系统中安装了能够提供服务的软件;
+
+3.$arr = array();
+  数组在php中是复杂类型,不能使用echo直接输出;
+print_r()//简单的输出数组信息
+var_dump()//输出详细的数组信息
+
+4.将一个数组转换成json格式的字符串
+$str = json_encode($str);
+这样就可以使用echo输出;
+
+5.自定义数组下标
+$arr = array(“name”=>”zhangsan”);
+
+6.二维数组
+$arr = array();
+$arr[“book”] = array(“name”=>”三国演义”,”price”=>”20”);
+
+7.字符串拼接用”.”
+
+8.数组遍历:
+$arr = array();
+$arr[0] = “jack”;
+$arr[1] = “rose”;
+for($i = 0; $i < count($arr); $i++){
+	echo $arr[$i];
+}
+count():获取数组长度;
+foreach($arr as $key => $v){
+	echo 
+}
+
+9.日期:
+date("Y-m-d")
+date(“Y/m/d”);
+星期
+date(“l”);
+时间:
+date("h:i:sa")
+h - 带有首位零的 12 小时小时格式
+i - 带有首位零的分钟
+s - 带有首位零的秒（00 -59）
+a - 小写的午前和午后（am 或 pm）
+
+date_default_timezone_set("Asia/Shanghai");
+
+10.php上传文件时,在form表单需要添加属性 enctype="multipart/form-data"
+保证文件以二进制上传;
+
+11.move_uploaded_file(file,newloc):函数将上传的文件移动到新位置;
+
+12.array_key_exists(索引名称,数组)判断数组中是否有该索引对应的数据,如果有,返回true,否则返回false;
+
+13.IE6以下Ajax兼容处理
+var x = null;
+if(window.XMLHttpRequest){
+  x = new XMLHttpRequest();
+}else{
+  x = new ActiveXObject(“Microsoft.XMLHTTP”);
+}
+
+14.Ajax请求四步:
+get方式:
+1)var x = new XMLHttpRequest();
+2)x.open(“get”,”*.php?username=” + text,true)//true表示异步,false表示同步;
+3)x.send(null);
+4)x.onreadystatechange = function(){
+   if(x.readyState == 4 && x.status == 200){
+	x.responseText;
+  }
+}
+post方式:
+1)var x = new XMLHttpRequest();
+2)x.open(“post”,”*.php”,true)//true表示异步,false表示同步;
+3)x.setRequestHeader(“Content-Type”,”application/x-www-form-urlencode”);
+3)x.send(“username=”+text);
+4)x.onreadystatechange = function(){
+   if(x.readyState == 4 && x.status == 200){
+	x.responseText;
+  }
+}
+
+15.readyState值:0,1,2,3,4;
+0:XMLHttpRequest对象创建完成;
+1:表示XMLHttpRequest对象已经发送请求;
+2:已经返回了服务器的数据
+3:正在解析服务器数据;
+4:数据解析完毕,可以使用
+status常见值:200,404,500;
+200:服务器返回数据ok,可以使用;
+404:请求地址写错(page is not found);
+500:服务器端错误;
+
+16.XML数据格式缺点:体积太大,传输慢,元数据(即描述数据的数据)太多,解析不方便,目前使用很少;
+
+17.如何向服务器发送一个请求得到服务器端的数据
+1)通过Ajax发送请求获取服务器端的数据(只能获取自己服务器的数据)
+2)通过跨域请求去获取服务器端的数据(可以向自己的服务器请求数据,也可以向别人的服务器请求数据);
+
+18.同源条件:
+1)协议要相同
+2)域名要相同
+3)端口号相同
+ajax只能获取同源数据;若三者不满足其一,则不同源;
+
+19.跨域请求的本质:通过script标签的scr属性引入其他服务器的文件,得到其他服务器文件中的数据;
+
+20.实现跨域请求:即动态的创建script标签,给script添加scr属性,属性值就是请求的地址,这种方式注定只能是get方式,因为需要在url添加参数,不仅可以添加参数,还可以动态的指定回调函数名;
+
+21.jquery使用ajax跨域请求,dataType:’jsonp’这是一个重要的属性,必须将dataType:’json’,才会发送跨域请求;jsonp:’cb’;建议不要甚至jsonpCallback属性;
+
+22.模板引擎的使用
+1)引入模板引擎代码
+<script type=‘text/javascript’ src=‘template.js’></script>
+2)添加一个模板
+<script type=‘text/html’ id=‘xxx’>
+    <table>
+	<tr>
+	   <th>书名</th>
+           <th>作者</th>
+           <th>描述</th>
+	</tr>
+        {{each result as value i}}//data已经传入,所以result是data里内容,value是数组元素,i是索引;
+	   <tr>
+	      <td>{{value.name}}</td>
+              <td>{{value.author}}</td>
+              <td>{{value.dec}}</td>
+	   <tr>
+        {{/each}}
+    </table>
+</script>
+3)将模板和数据结合起来生成一个html片段
+var data = {result:[{name:’三国演义’,author:’罗贯中’,dec:’一个杀伐纷争的年代’},]}
+//调用template函数生成html片段,函数第一个参数是模板id,函数第二个参数是数据;
+var html = template(‘xxx’,data);
+4)将html添加进页面;
+if语法:
+{{if  istrue}}
+{{/if}}
+如果返回的是字符串包含html标签
+var data = ’<span>Hi</span>’;
+此时需要转义:{{#data}};
+如果直接返回的是数组,需要对数组进行处理,把数组赋值给对象;
+
+23.jsonp跨域请求的本质是 返回方法的调用;
+
+24.php的explode和split方法:分割
+
+substr(索引,长度)
+
+strlen():获取字符串长度;
+
+
+
+
+
+
+
+
+
+
+
+
+JQuery:
+1.JQuery中$表示JQuery,$()即表示JQuery的对象
+
+2.$(document).ready()与DOM中Windows.onload作用类似,但是,后者是等页面内容加载完成才能执行,前者是所有DOM结构绘制完成后就可以执行,可能DOM元素关联的东西并没有加载完.$(window).load(function(){});$(function(){}).jq对象转为dom对象,$(obj).get(0)或者$(obj)[0].对于已经是一个DOM对象，只需要用$()把DOM对象包装起来，就可以获得一个jQuery对象了.
+1)执行时间 
+    window.onload必须等到页面内包括图片的所有元素加载完毕后才能执行。 
+    $(document).ready()是DOM结构绘制完毕后就执行，不必等到加载完毕。 
+
+2)编写个数不同 
+    window.onload不能同时编写多个，如果有多个window.onload方法，只会执行一个 
+    $(document).ready()可以同时编写多个，并且都可以得到执行 
+
+3)简化写法 
+    window.onload没有简化写法 
+    $(document).ready(function(){})可以简写成$(function(){});
+
+3.JQuery里的方法:
+html():获取页面内容类似innerHtml;也可以设置新的内容,但是原内容会被覆盖.
+is(“:checked”):判断JQuery对象是否被选择,返回boolean值
+$(“.test”).css{“background color”, “red”}添加颜色
+兄弟选择器:$(“.one + div”)等价于$(“.one”).next(“div”);$(“.one ~ div”)等价于$(“.one”).nextAll(“div”).$(“.one”).siblings(“div”)选择.one的同辈元素div与前后位置无关.
+层次选择器:
+$(“div:first”);只能选第一个
+$(“E:first-child”):选取所有父元素下的第一个子元素,和E:nth-child(1)相同,注意E是子元素!!!!!并不是匹配E下的第一个子元素.
+$(“div:last”);
+$(“div:not(.one)”):选取类名不是one的div.
+$(“div:even”):偶数索引值从0开始;$(“div:odd”):奇数
+$(“div:eq(1)”):选取索引值为1的单个元素,从0开始计数.
+$(“:nth-child()”):从1开始计数.  
+$(“div:gt(1)”):大于
+$(“div:lt(1)”):小于
+$(“E:first-of-type”):选取父元素下第一次出现的E元素,不管E元素前是不是有其他兄弟标签.
+$(“E:last-child”);E元素必须为其父元素下最后一个元素,不然不会被选中.
+$(“E:last-of-type”);
+$(“:header”):选取网页中所有<h1>,<h2><h3>…
+$(“div:animated”):选取正在执行动画的div元素
+$(‘:focus’):选取当前获取焦点的元素.
+$(“div:lang(“en”)”)
+$(“:root”)获取根元素HTML;
+$(“:target”):如果文档的URI包含一个格式化的标识符,或hash(哈希),然后:target选择器将匹配ID和标识符相匹配的元素.例如,给定的URI http://example.com/#foo， $( "p:target" ),将选择<p id="foo">元素.
+内容过滤选择器:
+$(“div:contains(text)”):选取包含”text”文本内容的div元素
+$(“div:empty”):选取不包含子元素(包括文本元素)的div元素
+$(“div:parent”):选取拥有子元素(包括文本元素)的div元素
+$(“div:has(p)”):选取拥有p元素的div元素
+可见性过滤选择器:
+$(“:hidden”)是找到所有的隐藏元素,元素被认为是隐藏的以下几种情况:1)display:none;2)type=“hidden”3)width和height = 0px;4)一个祖先元素是隐藏的,因此元素不会在页面上显示.注意:visibility:hidden和opacity:0被认为是可见的,因为他们仍占据空间,在动画,隐藏一个元素,该元素被认为是可见的直到动画结束.
+$(“:visible”):所有元素在文档中有一定空间的,元素被认为是可见的,可见元素的宽高是大于零的.隐藏元素上做动画是被认为是可见的直到动画结束.
+属性选择器:
+选择器特点:[]
+$(div[id])
+$(div[class=“userName”]):当class中有userName就可以,如果class中还有其他类名,都可以选中.
+$(input[name!=“userName”])
+$(input[name^=“name”]):匹配所有name的属性值以name开头的元素
+$(input[name$=“name”])匹配所有name属性的值以name结尾的元素(类似正则表达的开头结尾)
+$(input[name*=“name”])匹配所有name属性的值包含name的元素
+$(input[id][name=“userName”][class]):可以包含多个属性值
+
+4.即使网页上没有的元素在Dom中会报错,但是JQuery不会报错,需要注意,$(“#tt”)获取的永远是对象,即使对象不存在在页面上,也不能用 if($(“#tt”)){}来判断是否存在,而是应该用获取到的元素长度来判断if($(“#tt”).length > 0),或者转化成DOM对象来判断if($(“#tt”)[0]){}
+
+5..css():获取匹配元素集合中的第一个元素的样式属性的值或设置每个匹配元素的一个或多个CSS属性
+只能设置css里的样式,比如宽高,边框,但是不能设置类似src之类的属性,如果需要设置使用.attr()
+如果想要获取多个样式值,需要数组形式.css([ "borderTopWidth", "borderRightWidth", "borderBottomWidth", "borderLeftWidth" ]).css()获取和设置样式时,不支持连写样式,比如”border”,”background”.
+
+6..add()方法:相当于”和”的意思,$(“div”).add(“p”).css(“color”,””red);这个意思是div和p标签都赋值color:red.
+
+7.addClass():为元素添加类名,如果多个类名,可以用空格隔开,值得注意的是,它不会替换类名,像DOM那样className;
+如果和removeClass()连用,可以切换元素样式.参数可以是函数,函数的返回值是addlass()增加的类名.不会删除属性名”class”.
+
+8.hasClass(className):判断一个元素中是否有className的类,不管元素中有几个类名,只要包含我们需要查询的类名就会返回true,否则,返回false.
+
+9.attr()和prop()的区别:
+attribute(属性),property(特性),比如属性checked,当用attr()添加属性时,在页面标签内会有加上,但是用prop设置时,页面上不会显示.判断复选框是否选中时,只能用prop(),因为用attr()当它写入页面时,值是”checked”,不写时是”undefined”.
+判断复选框是否选中的三种方法:
+if ( elem.checked )
+if ( $(elem).prop("checked") )
+if ( $(elem).is(":checked") )
+当设置selectedIndex, tagName, nodeName, nodeType, ownerDocument, defaultChecked, 或 defaultSelected必须使用这个方法。从jQuery1.6开始，这些属性可以不再使用.attr()方法来设置。他们没有相应的属性（attributes），只有属性(property)。
+
+10.toggleClass(className,switch):如果元素中没有className就加上该类名,如果有,就删除;className可以是多个,中间用空格隔开;switch参数返回boolean值,判断是否添加或者删除成功;可以用于样式切换.
+
+11.val():获取匹配元素集合第一个元素value的值或为每个匹配元素设置value值.前者不需要任何参数:.val()方法主要用于获取表单元素的值，比如 input, select 和 textarea。对于 <select multiple="multiple"> 元素, .val()方法返回一个包含每个选择项的数组，如果没有选择性被选中，它返回null。
+
+12.height(): 这个方法可以获取匹配元素集合第一个元素的高度,或设置每个元素的高度.它与css(“height“)获取高度不同的是height()获取的高度是不带单位的,这样可以便于计算.获取高度时,不加任何参数.为每个元素添加高度时,如果数值不带单位,默认添加单位是”px”,同样的你也可以带单位,如”em”.height(),height()获取的是不包括padding和border的高度
+
+13.innnerHeight(),innerWidth():获取匹配元素集合第一个元素的高度,包括padding不包括border,这个方法不适合window和document,需要获取时,请用height().outerHeight()括号里默认是false,获取的是包括border的高度,outerHeight(true):获取的是包括margin在内的高度.
+总结:
+height,innerHeight,outerHeight():三个获取高度的方法是层层递进关系.
+
+14.siblings(“selcet”)选择兄弟元素.
+
+15.find(“select”):这个函数是找出正在处理的元素的后代元素
+
+16.end()链式编程时,结束当前部分,返回到上一个查找对象,如果方法返回值不是一个对象.那么end补救不回来,比如index()方法返回值是索引,用end断链是连不上的.
+
+17.addClass(“cls),不要加点.
+
+18.当一个对象调用了方法返回值是当前对象时,可以使用链式编程,否则断链.
+
+19.show(900.arguments.callee):递归.
+
+20.stop()用来停止动画,一般使用之前清除动画.
+
+21.通过$(“<a></a>”)可以直接创建对象,然后append()追加在里面最后.prepend()在元素的第一个子元素,after()在元素外面的后面添加元素,before()在元素的前面,但是after和before每次新添加的元素都是紧紧贴着自己,不会在上一次追加的元素后面添加.
+
+22.append()方法把元素添加到另一个元素中有剪切的效果. 
+
+23.empty()清空当前元素中的内容,remove()移除自身.clone():克隆元素,如果参数为true,则连元素的绑定事件一起克隆;
+
+24.hover(function(){},function(){})这个函数模拟css3hover事件,前者函数时鼠标放置事件,后者是鼠标离开事件.
+
+25.绑定事件
+1)bind():$(“#btn”).bind({“click”:function(){},”mouseover”:function(){}}).
+2)$(“#btn”).bind(“click mouseover”,function(){})
+3)delegate():对父级元素里的子元素绑定事件,$(“#div”).delegate(“p”,”click”,function(){})一般是为未知元素绑定事件,因为未知元素不知,所以无法获取未知元素作为对象,绑定事件,所以用delegate()利用未知元素的父元素作为对象.
+4)通过on()绑定事件$(“#btn”).on(“click”,function(){})也可以使用json格式添加多个事件
+on可以写三个参数1.事件的名字,2.要绑定事件的元素3.事件处理函数,on是父级元素调用为子级元素绑定事件.如果元素是动态添加的.那么非常推荐用on的方式为动态的元素绑定事件.$(“#btn”).on(“click”,”.cls”,function(){})
+
+26.解绑事件
+1)off():on事件对应的解绑事件$(“#btn”).off(“click”).
+2)unbind():bind()对应的是解绑事件.
+3)undelegate():delegate()对应的是解绑事件.
+
+27.触发事件的三种方式.作用:当一个元素已经绑定事件了,然后另一个元素的事件可以触发前一个元素的事件
+1)trigger():触发事件里面是触发事件的名称”click”
+2)triggerHandler():不触发浏览器行为,比如文本框获得焦点的默认行为;
+3)$(“.cls”).click();
+
+28.事件对象
+$(“div”).on(“click”,”input”, function(){})
+delegateTarget: 代码绑定事件的对象——div
+currentTarget:绑定事件的对象——input
+target:真正触发事件的对象.
+
+29.jQuery中取消事件的冒泡,和阻止浏览器的默认行为(a标签自动跳转),用return false.
+
+30.each(function(index,element){
+	this.src= “….”;
+})//this是指dom元素,如果要jq需要$(this);
+
+31.var xy = $.noConflict();释放控制权.
+
+32.offset()获取设置元素相对于文档的top和left值.
+
+
+
+
+
+
+
+
+
+
+Bootstrap:
+1.
+
+
+
+
+
+
+
+
+
+
+
+
+Vue:
+1.Vue.config.productionTip = false;去除开发模式中的提示;
+You are running Vue in development mode.
+Make sure to turn on production mode when deploying for production.
+
+2.v-if,v-else,v-show:
+v-if用来判断是否加载html的DOM;如果在new Vue中data对象中的属性为false就不加载,反之加载;
+当存在v-else时,v-if为false则加载v-else里内容;
+v-show的功能与v-if相似:
+但是v-if为false时不加载dom结构,减轻浏览器负担,v-show为false时,仅仅把元素的display属性设为none,其结构还是要加载,具体选择依据实际情况;
+
+3.v-for:给标签循环添加内容
+语法:
+<li v-for=“kk in person”> {{kk}} </li>
+<li v-for=“(kk,index)in person”> {{kk}} </li>
+peson是一个数组,kk为数组元素(名称随意),index为数组索引(名称随意);
+如果需要对一个person数组进行处理,必须在new Vue中的属性computed属性中重新定义一个属性,对这个属性定义一个函数操作;
+computed: {
+    sortItems: function () {
+         // console.log(this);
+         return this.items.sort((a, b) => a - b);
+             },
+    ortPerson: function () {
+         return this.person.sort(sorted('age'));
+             }
+       }
+其中这个this指的是Vue这个对象,items虽然在data里面,但是确实Vue的对象,所以,this.items可以调用到;
+
+4.v-text:在网页中如果用插值的方法插入数据即{{meg}},当网速慢,后者js错误时,会显示{{}},不是很友好,所以我们使用v-text;
+v-html:可以解析标签,但是需少用容易受到攻击(xss),提交表单时一定不能用v-html;
+

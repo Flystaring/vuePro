@@ -1,0 +1,97 @@
+1.context.fillRect(x,y,width,height);用来绘制已经填色的的矩形,默认是黑色;所以当写一个红色矩形时,必须先使用fillStyle()进行填色,后面在进行绘制,否则画出的是黑色矩形.
+
+2.canvas的理解:canvas是一个画板和画纸,画板相当于以一个容器,画图作业是在画纸上进行的.默认的画板和画纸的高度为300*150,当画板和画纸宽高相等时,图像不会被拉伸.如果用style样式设置宽高,仅设置了画板的宽高,画纸的宽高还是默认值300*150,所以图像被拉伸.canvas的width和height也不能用百分比表示。canvas会将百分值当成数值显示
+
+3.strokeRect(x, y, width, height):绘制一个矩形的边框
+rect():绘制矩形;
+fillRect():绘制填充矩形;
+
+4.clearRect(x, y, width, height):清除指定矩形区域，让清除部分完全透明。
+
+5绘制路径:beginPath():新建一条路径，生成之后，图形绘制命令被指向到路径上生成路径。注意：当前路径为空，即调用beginPath()之后，或者canvas刚建的时候，第一条路径构造命令通常被视为是moveTo（），无论最后的是什么。出于这个原因，你几乎总是要在设置路径之后专门指定你的起始位置。
+closePath():闭合路径之后图形绘制命令又重新指向到上下文中。闭合路径closePath(),不是必需的。这个方法会通过绘制一条从当前点到开始点的直线来闭合图形。如果图形是已经闭合了的，即当前点为开始点，该函数什么也不做。
+stroke():通过线条来绘制图形轮廓。
+fill():通过填充路径的内容区域生成实心的图形。注意：当你调用fill()函数时，所有没有闭合的形状都会自动闭合，所以你不需要调用closePath()函数。但是调用stroke()时不会自动闭合。
+moveTo(x, y):将笔触移动到指定的坐标x以及y上。这个函数实际上并不能画出任何东西，也是上面所描述的路径列表的一部分，这个函数就是moveTo()。或者你可以想象一下在纸上作业，一支钢笔或者铅笔的笔尖从一个点到另一个点的移动过程。当canvas初始化或者beginPath()调用后，你通常会使用moveTo()函数设置起点。我们也能够使用moveTo()绘制一些不连续的路径。看一下下面的笑脸例子。我将用到moveTo()方法（红线处）的地方标记了。
+lineTo(x, y):绘制一条从当前位置到指定x以及y位置的直线
+arc(x, y, radius, startAngle, endAngle, anticlockwise)
+画一个以（x,y）为圆心的以radius为半径的圆弧（圆），从startAngle开始到endAngle结束，按照anticlockwise给定的方向(不写参数为顺时针,false为顺时针,true为逆时针)来生成。注意：arc()函数中的角度单位是弧度，不是度数。
+
+角度与弧度的js表达式:radians=(Math.PI/180)*degrees。
+
+6.非零环绕原则:判断图形区域是否要填充的原则;
+从图形区域随便选一个点,拉一条辅助线到图形外面;
+判断绘制的线条是怎么穿过辅助线的,如果从辅助线右边穿到左边记-1,反之+1;
+求和,结果为0,不填充;非零填充;
+
+7.当canvas绘制线条.为了更加美观,它会取消锯齿的美化操作(中间保持颜色更深的线芯,两边各有一个像素的颜色更浅的边缘)
+什么时候会取消锯齿的操作,就是在线宽是奇数时,会取消锯齿的美化操作;
+比如线宽设置时101,线芯的宽度是100,上下各延伸一个像素;
+
+8.lineTo在最后(线宽比较大时)时不会美化转角,但是closePath会美化转角,所以结束时最好closePath()结束绘制;
+
+9.当绘制的状态发生改变时,绘制方式发生改变时,应该要开启新路径,如果不做这个操作,后面绘制的状态会覆盖掉之前绘制的内容;
+
+10.lineCap:线帽;
+lineJoin:线角
+
+11.setLineDash(数组):使用数组中的数字来设置虚线
+getLineDash():获取设置虚线的数组
+lineDashOffset = 10;设置虚线偏移10像素;
+strokeStyle=‘red’:线条颜色;
+fillStyle=‘red’:填充颜色;
+
+12.清除整个画布:
+ctx.clearRect(0,0,ctx.width,ctx.height);
+或 ctx.width = ctx.width;//这个是重置canvas的像素点,这个原有内容全部清除;
+
+13.绘制文本
+fillText(内容,x,y);//实心字体
+strokeText(内容,x,y);//空心字体
+绘制的文字会用左下角对其x,y坐标;
+
+常用属性:
+ctx.font = “30px 黑体”;
+水平方向:ctx.textAlign = “left”;//center,right,start,end;
+垂直方向:ctx.textBaseline = “top”;//middle,bottom,hanging(悬挂),ideographic(类似bottom),alphabetic(四线的对齐方式),
+
+14.ctx.measureText(“文字”).width:在当前字体大小下,文字占用的宽度;
+
+15.绘制图片:
+ctx.drawImage();
+注意:等图片加载完成才可以调用该函数;
+例:
+var img = new Image();
+img.src = “1.jpg”;
+img.onload = function(){
+    ctx.drawImage(img ,x, y);//将图片绘制到canvas中的(x,y)坐标处;
+}
+ctx.drawImage(img,x,y,width,height);//绘制之后,设置图片的width和height;
+ctx.drawImage(img,sx,sy,sw,sh,x,y,w,h);//将图片img的sx,sy,sw,sh部分绘制到画布(x,y)区域;
+
+16.变换:把坐标轴进行改变,当坐标轴发生变化时,绘制内容也随之改变.
+ctx.translate(100,200);
+ctx.scale(0.2,1.2);
+ctx.rotate();  
+
+17.ctx.save():将当前的状态保存;
+ctx.restore():将保存的状态恢复;
+save将当前状态保存在状态栈中,有先进后出的特点;
+
+经常用来恢复变换过的坐标轴;
+
+18.canvas优化:创建一个canvas标签,所有的绘制都在canvas中进行操作,最后将这个canvas绘制到页面中的canvas中去,利用drawImage();
+
+19.Konva:
+1)引入框架
+2)先创建舞台对象
+var stage = new Konva.Stage({width:600,height:400,container:”设置成div容器的id”});
+3)创建层对象;
+var layer = new Konva,Layer();
+4)创建矩形对象
+var rect = new Konva.Rect({x:100,y:100,width:100,height:200,stroke:”red”,fill:”gold”});
+5)将绘制的图形加入层中
+layer.add(rect);
+6)将层加入舞台
+stage.add(layer);
+注意:当我们层已经加入舞台后,在对layer进行重绘需要在绘制之后调用layer.draw()方法;

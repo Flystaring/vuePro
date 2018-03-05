@@ -1,0 +1,88 @@
+浅谈Vue.js的几个特点
+Vue.js简介
+（1） 简洁 （2） 轻量 （3）快速 （4） 数据驱动 （5） 模块友好 （6） 组件化
+简单
+下面看一段Angular的实现双向绑定的代码
+// html
+<body ng-app="myApp">
+    <div ng-controller="myCtrl">
+        <p>{{ note }}</p>
+        <input type="text" ng-model="note">
+    </div>
+</body>
+// js
+var myModule = angular.module('myApp', []);
+
+myModule.controller('myCtrl', ['$scopp', function($scope) {
+    $scope.note = '';
+]);
+然后再看一下Vue的代码
+
+// html
+<body>
+    <div id="app">
+        <p>{{ note }}</p>
+        <input type="text" v-model="note">
+    </div>
+</body>
+
+// js
+var vm = new Vue({
+    el: '#app',
+    data: {
+        note: ''
+    },
+    }
+}
+
+Vue虽然是一个比较轻量级的框架，简单轻量的同时还非常的人性化，其提供的API也是非常的容易理解，同时也提供了一些很便捷的指令和属性。
+
+那应该首先要关注下Vue的源码大小，Vue的成产版本（即min版）源码仅为72.9kb，
+官网称gzip压缩后只有25.11kb，相比Angular的144kb缩小了一半。
+
+小巧的一种好处就是可以让用户更自由的选择相应的解决方案，在配合其他库方面它给了用户更大的空间。
+
+如Vue的核心默认是不包含路由和 Ajax 功能
+，但是如果项目中需要路由和AJAX，
+可以直接使用Vue提供的官方库Vue-router及第三方插件vue-resource
+，同时你也可以使用其他你想要使用的库或插件，如jQuery的AJAX等。
+
+是不是感觉非常的灵活。
+
+不乏大匠
+
+Vue虽然小巧，但是“麻雀虽小五脏俱全”，在构建大型应用的时候也是得心应手。
+
+(1) 模块化
+结合Webpack进行相应打包是目前最热门的方案。webpack的配置。
+
+(2) 组件化
+Vue的组件化功能可谓是它的一大亮点，
+通过将页面上某一组件的html、CSS、js代码放入一个.vue的文件中进行管理可以大大提高代码的维护性。
+例如：
+// App.vue
+<template>
+    <div class="box" v-text="note"></div>
+</template>
+
+<script>
+export default {
+    data () {
+        return {
+            note: '这是一个组件的html模板！'
+        }
+    }
+}
+</script>
+
+<style scoped>
+.box {
+    color: #000;
+}
+</style>
+总结
+个人认为前端的一些技术都是融会贯通的，学习一门语言或者框架本身并不是为了学习它的技术，最重要的是学习它的思维，只有思维层面得到了延伸，学习其他技术的时候会发现得心应手。Vue带给我们的是前端一种解决问题的新的思维。
+
+
+
+lack_yngo

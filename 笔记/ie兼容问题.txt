@@ -1,0 +1,10 @@
+1.问题描述:经常遇到<a>标签有一个样式，是显示一张图片，但标签中写有文字，又想让文字隐藏，很多种情况下，会想到text-indent:-9999em;但今天就发现ie7中以及360默认ie模式下，图片就不显示了.
+解决方式:
+text-indent: -9999em; 
+overflow: hidden; 
+float: left; //当然也可以float: right;
+2.ie6.7.8以下版本不支持opacity和rgba的处理方法:
+filter:Alpha(opacity = 50)//opacity的取值是在0~100;filter:滤镜.只认盒子半透明,不认背景半透明
+3.ie6特有bug:当设置浮动时,有设置margin时会有双倍边框
+解决方法:display:inline.
+4.iE8以下使用语义标签,可以手动创建,document.createElement(“main”),创建出来的是行级元素;第二种解决兼容方式,引入插件html5shiv.min.js.引用前先判断,快捷键:cc:ie.

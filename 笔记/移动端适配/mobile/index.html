@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="./flexible.js"></script>
+    <title>Document</title>
+    <style type="text/css">
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+    
+    header {
+        width: 10.0rem;
+        height: 1.333rem background-color: skyblue;
+    }
+    
+    div {
+        width: 1rem;
+        height: 0.4rem;
+        font-size: 0.32rem;
+        /* 默认写上dpr为1的fontSize*/
+    }
+    
+    div {
+        width: 1rem;
+        height: 0.4rem;
+        font-size: 12px;
+    }
+    
+    [data-dpr="2"] div{
+        font-size: 24px;
+        background: url("2备图");
+    }
+    
+    [data-dpr="3"] div {
+        font-size: 36px;
+        background: url("3备图");
+    }
+    </style>
+</head>
+
+<body>
+    <header>
+    </header>
+    <!-- 
+		
+		1、如果使用 flexible  这个插件，就不需要加 viewport
+
+		2、在之前 写 viewport 的位置，引入 flexible 插件，引入之后，它会自动加上 viewport 以及
+
+		3、跟字体 是 css 自己设置的，如果引用 flexible 插件之后，跟字体是自动生成的
+
+		 	实现原理：计算屏幕宽度，动态设置缩放比
+
+		4、转换 rem 计算方式
+
+			需要设置的宽高 / 跟字体
+
+		5、cssrem (640，750)
+
+		{
+		    "px_to_rem": 75,  // 跟元素字体大小  75px
+		    "max_rem_fraction_length": 6,
+		    "available_file_types": [".css", ".less", ".sass", ".html", ".vue"]
+		}
+
+		6、 flexible 它是实现咱们适配的
+			cssrem	它只是咱们一个计算工具 （less, sass）
+
+		7、字号不使用rem，推荐使用 px
+
+		div { width: 1rem; height: 0.4rem; font-size: 12px; // 默认写上dpr为1的fontSize } 
+		[data-dpr="2"] div { font-size: 24px; } 
+		[data-dpr="3"] div { font-size: 36px; }
+
+
+		8、http://www.cnblogs.com/lyzg/p/5058356.html
+		   http://www.cnblogs.com/lyzg/p/5117324.html
+		   https://www.w3cplus.com/mobile/lib-flexible-for-html5-layout.html
+
+	 -->
+</body>
+
+</html>

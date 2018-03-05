@@ -1,0 +1,375 @@
+1.Vue.config.productionTip = false;去除开发模式中的提示;
+You are running Vue in development mode.
+Make sure to turn on production mode when deploying for production.
+
+2.v-if,v-else,v-show:
+v-if用来判断是否加载html的DOM;如果在new Vue中data对象中的属性为false就不加载,反之加载;
+当存在v-else时,v-if为false则加载v-else里内容;
+v-show的功能与v-if相似:
+但是v-if为false时不加载dom结构,减轻浏览器负担,v-show为false时,仅仅把元素的display属性设为none,其结构还是要加载,具体选择依据实际情况;
+
+3.v-for:给标签循环添加内容
+语法:
+<li v-for=“kk in person”> {{kk}} </li>
+<li v-for=“(kk,index)in person”> {{kk}} </li>
+peson是一个数组,kk为数组元素(名称随意),index为数组索引(名称随意);
+在遍历对象时,不仅有key和value,还有索引; <li v-for=“(val,key,index)in obj”> {{val}} </li>
+如果使用v-for迭代数字的话,前面的count值从1开始
+//<p v-for=“count in 10”>第{{count}}次迭代</p>
+
+为了确保dom也就是数据的唯一性,需要使用:key属性
+
+如果需要对一个person数组进行处理,必须在new Vue中的属性computed属性中重新定义一个属性,对这个属性定义一个函数操作;
+computed: {
+    sortItems: function () {
+         // console.log(this);
+         return this.items.sort((a, b) => a - b);
+             },
+    sortPerson: function () {
+         return this.person.sort(sorted('age'));
+             }
+       }
+其中这个this指的是Vue这个对象,items虽然在data里面,但是却是Vue的对象,所以,this.items可以调用到;
+
+4.v-text:在网页中如果用插值的方法插入数据即{{meg}},当网速慢,后者js错误时,会显示{{}},不是很友好,所以我们使用v-text,还会覆盖元素中原本的内容,但是插值表达式只会替换自己这个占位符,不会把整个元素内容清空,这个是与v-cloak的区别
+ 
+v-html:可以解析标签,但是需少用容易受到攻击(xss),提交表单时一定不能用v-html;
+
+v-text和v-html只能放在双标签里
+
+5.v-model:
+实现双向数据绑定
+v-model.lazy实现懒加载,即鼠标离开加载;
+v-model.number:只有输入数字才会有用;
+v-model.trim:去除输入两端的空格;
+
+v-model本质上只是一个语法糖;使用时,会忽略所有表单元素的value,checked,selected特性的初始值,它会选择Vue实例数据来作为具体的值.
+
+对于单选按钮，勾选框及选择列表选项，v-model 绑定的 value 通常是静态字符串 (对于勾选框是逻辑值)
+对于单选按钮,选择列表如果v-model 表达初始的值匹配其中的一个value值时,则该元素就被选中;如果没有匹配到任何value值时,则不会选中;
+对于勾选框,value是逻辑值,即如果v-model的初始值是逻辑值true,则会被选中,其中包括隐式转化成的逻辑值,比如非空字符串等等;
+
+6.v-bind
+1)v-bind可以绑定标签的属性,可以简写为:src,:class;
+
+2):class可以传入一个对象,数组;
+
+3)在class中如果类名没有引号,那么解析成变量,如果想添加类名,那么需要添加引号,此时会解析成类名;
+因为对象的属性名可以不加引号,所以解析成类名,或者样式属性;
+
+7.v-pre & v-vcloak & v-once
+v-pre:给标签添加这个指定,那么这个标签不会被渲染;
+
+v-cloak:给标签添加了这个属性,那么指的是当渲染完成后,显示;
+
+v-once:表示该元素只渲染一次,后续不会再被渲染;
+
+7.Vue.directive(“指令名”,Function(el,binding,vnode){…})
+binding.name:指定名;
+binding.value:值;
+binding.expression:键
+
+Vue.directive(“指令名”,{
+   bind:function(){//被绑定
+     console.log('1 - bind');
+},
+inserted:function(){//绑定到节点
+      console.log('2 - inserted');
+},
+update:function(){//组件更新
+      console.log('3 - update');
+},
+componentUpdated:function(){//组件更新完成
+      console.log('4 - componentUpdated');
+},
+unbind:function(){//解绑
+      console.log('1 - bind');
+}
+})
+
+bind:只调用一次，指令第一次绑定到元素时调用，用这个钩子函数可以定义一个绑定时执行一次的初始化动作。
+
+inserted:被绑定元素插入父节点时调用（父节点存在即可调用，不必存在于document中）。
+
+update:被绑定于元素所在的模板更新时调用，而无论绑定值是否变化。通过比较更新前后的绑定值，可以忽略不必要的模板更新。
+
+componentUpdated:被绑定元素所在模板完成一次更新周期时调用。
+
+unbind:只调用一次，指令与元素解绑时调用。
+
+8.Vue.set:
+由于Javascript的限制，Vue不能自动检测以下变动的数组。
+   当你利用索引直接设置一个项时，vue不会为我们自动更新。
+   当你修改数组的长度时，vue不会为我们自动更新。
+
+9.在vue中,data属性需要传递一个对象进去,使用时和art-template相似,忽略这个最外层对象,直接使用里面的;
+
+10.当使用v-on绑定一个事件时,该事件的处理方法只能写在methods属性里,或者computed属性中;
+
+11.app.$destroy()销毁vue对象;
+
+12.Vue的生命周期
+  beforeCreate:function() {
+       console.log("1-创建之前");
+  },
+  created:function() {
+       console.log("2-创建完成");
+  },
+  beforeMount:function() {
+       console.log("3-挂载之前");
+  },
+  mounted:function() {
+       console.log("4-挂载完成");
+  },
+  beforeUpdate:function() {
+       console.log("5-更新之前");
+  },
+  updated:function() {
+       console.log("6-更新完成");
+  },
+  beforeDestroy:function() {
+       console.log("7-销毁之前");
+  },
+  destroyed:function() {
+       console.log("8-销毁完成");
+  }
+
+13.template:
+template:`
+   <h2 style="color:red">template的第一种写法</h2>
+`
+<script type="text/x-template" id="tpl">
+    <h2 style="color:peachpuff">template的第三种写法</h2>
+</script>
+<template id="tpl">
+    <h2 style="color:green">template的第二种写法</h2>
+</template>
+
+14.Vue.directive
+
+15.Vue.extend
+var header_a = Vue.extend({
+   template:`…`
+   data:function(){
+      return {
+}
+}
+})
+propsData用在全局扩展时进行数据传递,
+扩展构造器data必须是函数,不能是对象;
+
+
+16.component:
+定义全局组件
+Vue.component(“组件名”,{…})
+定义局部组件:
+components:{
+   “组件名”:{…}
+}
+组件注册的是一个标签，而指令注册的是已有标签里的一个属性。在实际开发中我们还是用组件比较多，指令用的比较少。因为指令看起来封装的没那么好，这只是个人观点。
+
+挂载属性:
+props:[];
+同样可以对属性值v-bind进行绑定;
+注意属性值中带有”-”,如”school-name”,js中schoolName
+
+定义父子组件:
+即在compontents里再次定义components
+
+17.在Vue1.0中自定义组件命名,会把标签先转换成小写,然后按照标签名,camelCase,PascalCase,匹配组件名,如:模板 <MyComponent></MyComponent> 插入到 DOM 后会变成 <mycomponent></mycomponent>。标签 mycomponent 匹配的组件依次为 mycomponent（原标签名）、mycomponent（camelCase形式）、Mycomponent（PascalCase形式），并没有匹配到注册的组件名 MyComponent，所以会报找不到组件 <mycomponent> 的警告。
+
+但是在Vue2.0中,引入了virtual Dom,所以组件名会以原样不会转成小写去匹配组件名.如果你已dom元素的形式使用组件,而不是使用模板,那么它还是会转换成小写匹配
+
+18.使用<component>标签来使用自定义组件,那么<component :is=“”>需要使用is属性,属性名必须是”is”!
+
+19.computed选项:
+computed 的作用主要是对原数据进行改造输出,不改变原数据
+
+20.Vue的methods选项:
+参数$event类似事件对象,需要在调用时传入,声明时用一个参数接收
+<button @click="add(2,$event)">add</button>
+
+当在组件时需要调用构造器里的方法时,加native
+<btn @click.native="add(4,$event)"></btn>
+
+当在构造器外部调用方法时
+<button onclick="app.add(10)">外部add</button>
+app为声明的构造器即,var app = new Vue();
+
+21.watch可以作为选项;也可以在外部调用,app.$watch(“变量名”,function(now,old){…});
+
+22.minixs:选项,为数组;可以全局混入Vue.minix({…})
+
+23.extends选项:只能放置一个对象
+extends:obj,
+如果obj中有和构造器里一样的方法,那么只会调用构造器里的方法;
+
+24.delimiters:选项是改变插值的符号;
+delimiters: ['${', '}']
+
+25.在Vue中引入其他插件,那么使用时需要在vue的生命周期的mounted或者updated里使用,也就是需要元素挂载成功后,在dom中可以找到元素,才能使用jq里的方法;
+
+26.$forceUpdate()重新渲染实例,类似刷新操作;
+$nextTick(function(){…}) 数据修改方法
+当Vue构造器里的data值被修改完成后会调用这个方法，也相当于一个钩子函数吧，和构造器里的updated生命周期很像。
+
+27.实例事件
+app.$on(“事件名”,function(){})//相当于定义一个事件;
+app.$once(“事件名”,function(){})//只执行一次的事件;
+当定义了一个事件以后,需要触发该事件即$emit(“事件名”)//app.$emit(“事件名”);
+app.$off(“事件名”)//关闭事件
+
+28.slot:
+向组件的模板中插值,使用slot
+<pd>
+   <span slot="name">{{person.name}}</span>
+   <span slot="sex">{{person.sex}}</span>
+   <span slot="age">{{person.age}}</span>
+</pd>
+在模板中
+<template id="tpl">
+   <div>
+      <p>人物姓名:<slot name="name"></slot></p>
+      <p>人物性别:<slot name="sex"></slot></p>
+      <p>人物年龄:<slot name="age"></slot></p>
+    </div>
+</template>
+
+29.redirect和alias的区别
+redirect：仔细观察URL，redirect是直接改变了url的值，把url变成了真实的path路径。
+alias：URL路径没有别改变，这种情况更友好，让用户知道自己访问的路径，只是改变了<router-view>中的内容。
+
+30:别名请不要用在path为’/’中，如下代码的别名是不起作用的.
+
+31.Vue也可以用于手机app开发,需要借助于Weex.
+
+32.Vue是一套构建用户界面的框架,只关注视图层;
+
+33.框架和库的区别:
+框架是一套完整的解决方案,对项目侵入性比较大,项目需要更换框架,则需要重新架构整个项目
+
+库(插件):提供某一个小功能,对项目侵入性较小,如果某个库无法完成某些需求,可以很容易切换其他类库使用.
+
+34.mvc和mvvm区别:
+MVC是后端分层开发的概念;
+
+35.el:表示当前我们这vue实例,要控制页面上哪个区域,不可以挂载到body和html上,可以使用类型,id,标签名;
+
+36.v-bind:只能实现数据的单项绑定,从M到V,无法实现数据的双向数据绑定
+
+37.过滤器:
+全局方法 Vue.filter() 注册一个自定义过滤器,必须放在Vue实例化前面
+{{ msg | msgFormat(“帅气”, “无敌”) | test}}
+Vue.filter(“过滤器名称”,function(data,arg1,arg2,…){});
+第一个参数是数据,以后参数都是传递的参数,过滤器传参时后面不要加空格
+
+38.配置全局按键修饰符
+Vue.config.keyCodes.f2 = 113;
+
+39.vue发送ajax请求
+this.$http.get()
+
+40.Vue.http.options.root = “”;
+Vue.http.options.emulateJSON = true;
+
+41.动画:
+<transition>…</transition>
+.v-enter,.v-leave-to{}
+.v-enter-active,.v-leave-to{}
+
+使用:duration:”400”来统一设置入场和离场的时候动画时长
+分别设置离场和入场动画:duration=“{enter:200,leave:400}”;
+
+enter-active-class=“”,leave-active-class=“”;
+
+在动画生命周期中的enter函数需要加done和el.offsetWidth;
+enter(el,done){
+  el.offsetWidth;//固定写法
+  done();//done其实就是afterEnter这个函数,也就是说:done是afterEnter函数的引用
+}
+
+42.如果要为v-for循环创建的动画transtion-group包裹,而且需要key属性
+
+43.v-move{}和v-leave-active配合使用可以实现后续列表,渐渐上浮的效果
+
+44.给transition-group元素设置tag属性可以指定transition-group渲染为指定的元素,如果不指定默认渲染为span;可以为transition-group添加appear属性,可以为列表添加入场动画效果
+
+45.
+模块化:是从代码逻辑的角度进行划分;方便代码分层开发,保证每个功能模块
+组件化:是从UI界面的角度进行划分的,前端的组件化;
+
+46.<transition mode=“out-in”><transition>先出后进
+
+47.父组件向子组件传值:以属性绑定的形式,传递给子组件 
+props中的数据都是只读的,无法重新赋值;
+
+48.在Vue中绑定事件如果是click之类的事件,那么事件名如foo(),可以加括号,也可以不加,但是如果是绑定自定义事件,就不能加括号,加了就是事件的调用;
+
+49.组件的data为什么是函数,不是对象,是因为当定义一个组件<lcc></lcc>后,多次在页面中引用<lcc></lcc>,那么修改其中一个组件的data值,那么所有引用的组件的值都会修改,但是如果data是函数时,那么则不存在此现象;
+
+50.refs属性可以获取DOM元素
+<h3 ref=“myh3”>fads</h3> //ref不加s是因为单个元素,获取元素时,this.$refs.my.innerText//获取文本内容
+
+ref也可以为组件添加引用,这样可以直接使用点语法获取data数据和method方法
+
+51.在路由配置选项中有linkActiveClass选项,添加类名,修改router-link标签激活的样式;
+
+52. 在 computed 中，可以定义一些 属性，这些属性，叫做 【计算属性】， 计算属性的，本质，就是 一个方法，只不过，我们在使用 这些计算属性的时候，是把 它们的 名称，直接当作 属性来使用的；并不会把 计算属性，当作方法去调用；
+
+注意1:计算属性，在引用的时候，一定不要加 () 去调用，直接把它 当作 普通 属性去使用就好了；
+
+注意2:只要 计算属性，这个 function 内部，所用到的 任何 data 中的数据发送了变化，就会 立即重新计算 这个 计算属性的值
+
+注意3:计算属性的求值结果，会被缓存起来，方便下次直接使用； 如果 计算属性方法中，所以来的任何数据，都没有发生过变化，则，不会重新对 计算属性求值；
+
+53.watch、computed和methods之间的对比
+computed属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算。主要当作属性来使用；
+methods方法表示一个具体的操作，主要书写业务逻辑；
+watch一个对象，键是需要观察的表达式，值是对应回调函数。主要用来监听某些特定数据的变化，从而进行某些具体的业务逻辑操作；可以看作是computed和methods的结合体；
+
+
+54.在一个模块中,export default只允许向外暴露一次.在一个模块中可以同时使用export default和export,
+使用export向外暴露的成员,只能使用{}的形式来接受,这种形式叫做按需导出.
+export var one = “123”;
+export var two = “233”;
+import {one, two} from “./ss.js”
+
+
+
+
+
+
+vue-cli:
+1.文件目录
+.
+|-- build                            // 项目构建(webpack)相关代码
+|   |-- build.js                     // 生产环境构建代码
+|   |-- check-version.js             // 检查node、npm等版本
+|   |-- dev-client.js                // 热重载相关
+|   |-- dev-server.js                // 构建本地服务器
+|   |-- utils.js                     // 构建工具相关
+|   |-- webpack.base.conf.js         // webpack基础配置
+|   |-- webpack.dev.conf.js          // webpack开发环境配置
+|   |-- webpack.prod.conf.js         // webpack生产环境配置
+|-- config                           // 项目开发环境配置
+|   |-- dev.env.js                   // 开发环境变量
+|   |-- index.js                     // 项目一些配置变量
+|   |-- prod.env.js                  // 生产环境变量
+|   |-- test.env.js                  // 测试环境变量
+|-- src                              // 源码目录
+|   |-- components                     // vue公共组件
+|   |-- store                          // vuex的状态管理
+|   |-- App.vue                        // 页面入口文件
+|   |-- main.js                        // 程序入口文件，加载各种公共组件
+|-- static                           // 静态文件，比如一些图片，json数据等
+|   |-- data                           // 群聊分析得到的数据用于数据可视化
+|-- .babelrc                         // ES6语法编译配置
+|-- .editorconfig                    // 定义代码格式
+|-- .gitignore                       // git上传需要忽略的文件格式
+|-- README.md                        // 项目说明
+|-- favicon.ico 
+|-- index.html                       // 入口页面
+|-- package.json                     // 项目基本信息
+
+
+

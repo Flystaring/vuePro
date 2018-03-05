@@ -1,0 +1,86 @@
+1.viewport的设置,一般设置在已有的mate标签之后,只有在移动端生效,没有单位.
+
+2.移动端特有的点击高亮效果去除:-webkit-tap-hightlight-color:transparent;
+
+3.touchstart:手指触摸屏幕时触发
+touchmove:手指在屏幕上移动时触发
+touchend:手指离开屏幕时触发
+touchcancel:触摸意外中断事件
+
+事件对象:
+e.touches:位于屏幕上所有手指的列表(数组)
+e.targetTouches:当前元素上手指对象列表(数组)
+e.changedTouches:touchstart时包含刚与触摸屏接触的触点,touchend时包含离开触摸屏的触点(数组)
+获取时,使用数组的形式.
+注:没有对比出touches同targetTouches的差异,推荐使用targetTouches
+screenX/screenY:是手指的触摸点相对于屏幕左上角的距离;
+clientX/clientY:相对于当前视口—-移动端屏幕;
+pageX/pageY:​⼿手指相对于layout viewport的⽔水平/垂直像素距离(含滚动)​(未设置viewport时,screenX/Y在Webview中不正确)
+​target:⼿指最初与屏幕接触时的元素
+
+4.移动开发通常会设置<meta name="viewport" content="width=device-width, initial-scale=1">,这时这三对坐标值是完全⼀一样的。
+
+5.touch事件的触发必须需要元素有具体的宽高值,如果宽或者高为0时,事件不会触发.
+
+6.如果获取手指触发事件时,必须先获取手指列表(e.targetTouches).
+
+7.在谷歌浏览器的模拟器中,无法正确触发swipe相关事件,但是可以触发tap事件.
+
+8.在移动端不用click,是由于点击后,会等待300ms左右,判断后续是否还有点击操作,所以利用click事件,操作会有延迟.
+
+9.利用touch事件模拟click事件.
+1)限制手指移动范围
+2)限制手指的触屏时间
+3)限制手指在屏幕中的数量
+
+10.在移动端设计中,当2个元素在一行时,让左元素宽度为(50px),让右元素随着屏幕宽度的变化而自适应宽度,此时,可以利用原理:浮动元素不能覆盖行内元素,行内块元素,和触发BFC的元素(如overflow:hidden);或者右侧元素不给宽度,利用margin-left:50px;让他距离左侧100px,右元素宽度电脑自适应给出.
+
+11.移动端的点透事件,是由于click点击事件的延迟造成的.可以使用fastClick插件;
+
+12.利用插件时,如果需要滑动,一定要注意那么子元素的高度需要大于父元素的高度,否则滑动不了;
+
+13.网页布局方式:
+1)固定宽度布局
+2)流式布局:以百分比为长度单位
+3)栅格化布局
+4)响应式布局
+
+14.@media screen and ();当你判断最小值,并且从小到大进行判断,
+1)向上兼容:如果设置了更小时的样式,默认这样样式会传递到更大的样式范围内
+2)向下覆盖:宽度更大的样式会将前面宽度更小的样式覆盖
+书写建议:
+1)如果判断最小值(min-width),那么就应该从小到大写
+2)如果判断最大值(max-width),那么就应该从大到小写
+min-device-width:在移动可以,但是在pc端不行,因为pc端的设备屏幕宽度不变.
+
+15.bootstrap配置
+引入bootstrap,css文件
+判断浏览器IE:添加两个js文件, html5shiv.min.js 和 respond.js
+引入jq文件和bootstrap文件.
+
+16.bootstrap外层布局容器(.container固定宽度)
+w>1200时,w=1170; lg large
+w:992~1200,w=970; md middle
+w:768~992,w=750; sm small
+w<768,w=100%;  xs extra small
+布局容器(.container-fluid)为全屏容器,w=100%;
+
+17.栅格系统:
+1)默认12列
+2)布局.container-fluid/.container>.row>column(标签);
+.col-xs-4:设置在当前div在xs屏幕占据当前屏幕的12等分中的4等分
+offset:偏移,偏移距离以栅格为单位,但是这中偏移会直接影响后面元素,是以margin实现的;
+push(往后推)/pull(往前拉):实现方式是以定位实现,会出现元素重叠.
+3)列嵌套; 
+4)隐藏元素,以display:none实现
+
+18.less:
+1)注释/* */这个会编译
+//这个不会编译
+2)变量 @变量名:值
+3)混入:相当于定义一个函数的参数
+4)嵌套:&:hover() &::after
+
+19.在bootstrap中,应用了其组件,如果要修改其样式,首先要查看需要修改的样式在哪个类名中设置,那么你修改时,需要在其对应的类名中修改.
+
+20.在使用bootstrap某个插件时,可以把其css设置的部分单独拿出来,这样修改样式时,就可以对应修改.

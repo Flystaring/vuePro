@@ -1,0 +1,161 @@
+Git:
+1.git init:初始化仓库;
+
+2.配置当前用户:
+git config —-global user.name “xgmg”;
+git config —-global user.email “dsds@163.com”
+
+3.git add:暂存
+git commit -m “”:提交本地仓库;
+
+4.git status:查看当前文件有没有被放到仓库;
+显示红字:则在工作区;
+显示绿字:在暂存区;
+nothing to commit:在仓库;
+
+5.一次性提交到仓库:
+git commit —-all -m “”
+git commit —am “”
+但是提交的文件需要经过一次暂存区和仓库,下次才能使用一次性提交;
+
+6..gitignore只会忽略在工作区的文件;
+
+7.git diff filename:查看当前文件与仓库中的文件修改不同点;
+
+8.git log 查看提交日志;
+git log —-oneline:查看简写日志;
+
+9.版本回退:
+git reset —-hard Head~索引;
+git reset —-hard 版本号;
+git reflog:可以看到每一次切换版本的记录:可以看到所有提交的版本号;
+
+10.git branch 分支名:创建分支
+git branch:查看分支;
+git checkout 分支名:切换分支;
+git merge 分支名1:当前分支合并分支名1;
+git branch -d 分支名:删除分支;
+
+11.git remote
+$ git remote -v 使用-v选项，可以参看远程主机的网址。
+git remote add:命令用于添加远程主机。
+git remote rm命令用于删除远程主机。
+git remote rename命令用于远程主机的改名
+
+12.注意，分支推送顺序的写法是<来源地>:<目的地>
+所以git pull是<远程分支>:<本地分支>，而git push是<本地分支>:<远程分支>。
+
+13.git push
+如果当前分支与多个主机存在追踪关系，则可以使用-u选项指定一个默认主机，这样后面就可以不加任何参数使用git push。
+$ git push <远程主机名> <本地分支名>:<远程分支名>
+如果省略远程分支名，则表示将本地分支推送与之存在"追踪关系"的远程分支（通常两者同名），如果该远程分支不存在，则会被新建。
+
+14.git pull
+git pull命令的作用是，取回远程主机某个分支的更新，再与本地的指定分支合并。它的完整格式稍稍有点复杂。
+$ git pull <远程主机名> <远程分支名>:<本地分支名>
+
+如果远程分支是与当前分支合并，则冒号后面的部分可以省略。
+$ git pull origin next   $ git pull -u origin next:下次上传只需git push;
+
+15.ssh生成rsa密钥
+ssh-keygen -t rsa -C “…”;
+
+
+
+
+
+
+
+
+
+
+NPM:
+1.npm init:初始化生成package.json文件
+
+2.npm install 模块名
+
+3.—-save:在package.json显示安装包的名字和版本;
+-dev:表示只是在开发中使用的包,并不需要上线;
+
+4.简写npm install :npm i;
+
+5.nrm:源切换
+
+6.npm view:查看信息
+
+7.npm update:更新版本
+
+8.npm list -g --depth 0:查看全局下安装的包
+
+9.npm uninstall -g :删除全局下的包
+
+10.npn i —-production:只安装生产环境下的包;
+
+11.yarn init//初始化
+
+yarn add//安装包
+
+yarn remove//删除包
+
+yarn upgrade//更新包
+
+yarn add xxx —-dev//安装开发依赖的包
+
+yarn global add xxx//全局安装
+
+yarn install//安装所有依赖
+
+yarn run //执行包
+
+
+
+
+
+
+
+
+
+
+
+gulp:
+1.gulp.task(“任务名”,function(){})//创建文件;
+
+2.gulp.src(“./*.css”)//指定想要处理的文件;
+
+3.gulp.dest();//输出到哪;
+
+4.gulp.run();//运行任务;
+
+5.pipe()//管道
+
+6.gulp是基于node的stream(流);
+
+7.它的核心原理其实很简单，最主要是通过各种 Transform Stream 来实现文件的处理，然后再进行输出。Transform Streams 是 NodeJS Stream 的一种，是可读又可写的，它会对传给它的对象做一些转换的操作。
+
+
+
+
+
+
+ESLint:
+1.ESlint配置需要在当根目录下新建.eslintrc.js文件;如果当前目录没有该文件就会向上寻找直到结束;
+
+2.有时候代码里有些特殊情况需要我们在某一行或者某几行关闭ESLint检测，可以使用注释：
+下面的代码会关闭所有规则
+/* eslint-disable */
+alert('foo');
+/* eslint-enable */
+
+下面的代码会关闭某一行的所有规则
+alert('foo'); // eslint-disable-line
+
+下面的代码在某一行关闭指定的规则
+alert('foo'); // eslint-disable-line no-alert
+
+3.在vscode下.eslintignore必须放在根目录下才会起作用;即当前文件夹的根目录
+
+4.可以在js中定义全局变量/*global Vue*/,这样就不会报错,未定义;
+也可以在.eslintrc中定义:
+  "globals":{
+        "Vue":true
+    }

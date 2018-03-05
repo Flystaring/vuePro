@@ -1,0 +1,1301 @@
+1·可以继承的line- text- font-; HTML（Hyper Text Markup Language)
+css样式中不是全部的属性都是可以被子元素继承的，下面列出 css中可以和不可以继承的属性。
+不可继承的：
+display、margin、border、padding、background、height、min-height、max-]height、width、min-width、max-width、overflow、position、left、right、top、 bottom、z-index、float、clear、table-layout、vertical-align、page-break-after、page-bread-before和unicode-bidi。
+
+所有元素可继承:visibility和cursor。
+
+内联元素可继承：
+letter-spacing(字母间距)、
+word-spacing(单词间距)、
+white-space(换行)、
+line-height、
+color、
+font、
+font-family、
+font-size、
+font-style、
+font-variant、
+font-weight、
+text-decoration(line-through;underline;overline;none;)、
+text-transform(属性控制文本的大小写值:uppercase,lowercase;capitalize;)、
+direction(设置文本方向 ltr:默认从左向右,rtl(right to left):从右向左);
+
+块状元素可继承：text-indent和text-align。
+列表元素可继承：list-style、list-style-type、list-style-position、list-style-image。
+表格元素可继承：border-collapse。
+
+块级元素:
+div, p, form, ul, li, ol, dl, address, fieldset, hr, menu, table
+行内元素:
+a, span, strong, em, br, img, input, label, select, textarea, cite;  
+
+2.icomoon.io网站可获取图表,其中font文件夹和style文件需要获取;
+
+3.网站优化首先三个点:1)title标题 2)description描述 3)keywords关键字,其中后两点使用mate标签,name=“keywords” content=“”;
+
+4.使用火狐浏览器可以网站截图,使用前必须网站加载完全,其次,ctrl+0把网页等比例放大;
+
+5.如果前者没有设置浮动,那么后者浮动则会在前者的下一行才浮动;若前者设置浮动,后者没有设置浮动,那么后者则会在前者下方出现.
+浮动原始意义在于文字环绕
+利用clear清除浮动,那个只影响清除元素本身,不会影响其他元素,也就是说,如果存在两个div1 和 div2 设置左浮动,我想让div2在下一行显示,对div使用clear:right是没有效果的,这个只影响div1,所以可以对div2使用clear:left.也就是div2左边不允许有浮动元素,所以div2只有移到下一行.
+
+6.字号出现16px\1问题
+
+7.在已经规定好的盒子内,设置内边距则需要加减宽高保持盒子大小不变.还可以使用box-size固定盒子大小,这样就不需要重新设置盒子大小.
+
+8.宽度剩余法,即宽度与另一个盒子相邻,详见京东logo设计模式
+
+9.logo优化使用h1标题,首行缩进text-indent
+
+10.强制一行显示:white-space:nowrap;
+
+11.line-height是指边框顶部到文字底部的距离,所以,当行高大于盒子高度时,文字向下走,反之向上.
+
+12.BFC块级格式化上下文:即建立一个封闭的盒子,在这个盒子内的布局与外部无关,
+触发条件:浮动,绝对定位,固定定位,display,overflow不为visible.
+可解决问题:
+外边距合并,即不属于同一个BFC不会发生外边距合并,清除浮动.
+清除浮动:
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: " ";
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix{
+    *zoom: 1;
+}
+
+13.当前者浮动时,父盒子没有高度,那么或者会在前者下方显示,此时清除浮动方法的原理是,给父盒子添加高度即可,那么其中一种方法是添加高度,还有clearfix:after;还有BFC,BFC即就是为盒子添加高度,最后是overflow:hidden,理解:超出部分隐藏,那么即是超出部分隐藏,是不是需要检测子盒子高度,才能判断超出部分,那么就是父盒子有高度.
+
+14.子元素如果设置宽高,设置padding时需要加减
+
+15.font连写不会继承行高,分开写可以,所以使用17px/18px形式,缩写行高;
+
+16.如果购物指南不设浮动?
+
+17.行内元素可以指定左右的margin padding值.
+
+18.input buuton是有默认样式的,当宽高不对时,想到默认样式有没有清除(margin,padding)
+
+19.当新建一个盒子时,盒子的width和height是不包括边框的,所以ps测量写width和height时要测量内部不包括边框.
+
+20.字间距:letter-spacing.
+
+21.css的corlor属性可以继承,但是有的标签继承不了,比如a标签需要手动设置.
+
+22.一定要注意设置padding值时,盒子会被扩大,需要加减!!!!
+
+23.line-height浅析:
+1)首先,一个没有高度的盒子输入文字并不是文字撑开了盒子高度,而是由于行高的存在,line-height是决定line boxes盒子的高度的直接属性;若一个盒子内部没有行高,只有文字大小那么这个盒子没有高度,只有行高存在才能撑开盒子.
+2)其次理解inline box模型中line box,line box是覆盖在每行文字上的透明的盒子,在一行中谁的line-height高度最高,那么就采用这个高度为行高;
+3)line-height还有一个特性垂直居中性,最终表现通过line box实现的,无论line boxes所占据的空间大小(无论比文字大还是比文字小),其占据的空间都是与文字内容公用水平中垂线.
+4)line-height设置有几种形式,px em 120% 1.5 normal.父元素设置px,子元素会继承;设置em和120%,子元素会继承父元素font-size*line-height的行高.如果设置1.5或normal,那么子元素继承是各自的font-size*line-height.(normal的大小倍数一般是1.0-1.2)
+
+24.h1往往结合页面的logo使用优化页面,所以一个页面往往只有一个h1.
+
+25.rel=“No follow”搜索引擎优化,告诉搜索引擎的蜘蛛不用跟踪页面链接.
+
+26.元标签mate用于引擎优化让页面与搜索引擎的蜘蛛交流更好.
+
+27.,,/跳跃到上一级文件夹,../../再跳一个
+
+28.控制台输入escape(“宋体”)可得到宋体的Unicode字体
+
+29.字体阴影:text-shadow3个属性值,x轴偏离,y轴偏离,模糊强度,颜色,可以设置多层阴影,用逗号分隔.
+
+30.兄弟选择器+(必须是相邻的兄弟元素)和~;
+
+31.display:none和visibility:hidden
+display:none隐藏不占据空间,visibility:hidden,隐藏占据空间.
+
+32.权重
+第一等：代表内联样式/行内样式，如: style=””，权值为1000。
+第二等：代表ID选择器，如：#content，权值为100。
+第三等：代表类，伪类和属性选择器，如.content，权值为10。
+第四等：代表类型选择器和伪元素选择器，如div p，权值为1。
+注意：通用选择器（*），子选择器（>）和相邻同胞选择器（+）并不在这四个等级中，所以他们的权值都为0。
+层叠性：当拥有相同权重的时候，后面的样式会覆盖前面的样式应用
+
+33.轮播图中的左右箭头可以放在一个一个大盒子,后面js特效抒写容易
+
+34.一个定位的盒子左右都写,那么他会遵循先上后下,先左后右原则
+
+35.背景半透明:background:rgba(0,0,0,.5)让背景半透明,文字内容不应用,不可继承;opacity也是透明度,盒子透明,
+使背景和文字内容一起透明,可继承
+
+36.优雅降级(graceful degradation)和渐进增强(progressive enhancement)
+渐进增强是浏览器向上兼容,先照顾低版本的浏览器
+优雅降价是先做高版本浏览器,然后去调试低版本的浏览器兼容问题.
+
+37.弹性布局:flex中align-items中是指交叉轴的对齐方式,justify-content是指主轴轴的对齐方式,二者属性都是center时,可以是flex布局形成居中布局
+align-items和align-content的区别:前者用于单行,后者用于多行容器的对齐方式(即运用于整个容器的里的多行对齐).
+align-self:设置单个元素在交叉轴的排列方式,设置在子元素内.
+align-items:默认值:stretch;
+flex属性:属性合集,flex-grow,flex-shrink
+flex-grow:1;默为0,可以扩展子元素的宽度,设置子元素如何分配在主轴方向的剩余空间.
+flex-shrink:默认值为1,设置空间不够时,子元素承担多少空间
+flex:1;可以设置宽度,把父盒子宽度按比例分配,这样删了部分元素,剩下的元素也可以自适应扩展.
+
+38.font-family:simsun 这个字体可以让”>”更好看
+当font-family设置多个字体时,如果前一个字体不可用,会自动降级使用第二个字体;
+
+39.font-weight:normal.400px==normal 700px==bold.
+
+40.a标签不能嵌套a标签
+
+41.validator.w3.org/union
+
+42.hover鼠标悬停在一个元素上触发另一元素样式写法 selector1:hover selector2{}.
+如果selector1与hover之间有空格,那么hover的是selector元素下的子元素附加hover效果;
+
+43.绝对定位 top,left值为正值.
+
+44.flex弹性布局:flex属性flex-direction:row,row-reveres(反向排列),column,column-reveres(纵向反向排列)
+flex-wrap(如果一条轴线排不下是否换行):nowrap, wrap, wrap-reverse(如果有两行,则第二行在第一行上方)
+flex-flow(flex-direction和flex-wrap的缩写形式默认形式 row nowrap).
+justify-content(定义了在主轴上的堆积方式):flex-start,flex-end,center,space-between(两端对齐,项目之间的间距相等) space-around(每个项目的两侧间隔相等)
+
+45.js:94年想法 95年诞生 网景公司创立 现在的js是微软公司jscript(抢先网景提交规范) 异步和服务器交互(ajax) webhek.com codecombat.com 
+意义:网页特效 小游戏 手机app 表单验证 
+箭头函数渐渐取代ajax
+外部引用优点:
+1)实现样式结构行为相分离 
+2)便于维护 
+3)可缓存
+标签<script>属性
+async 异步加载,外部文件加载完成就执行(注意async只支持外部样式) 
+defer 延迟加载,全部页面加载完再加载外部引用
+
+46.不能以浮点数相等作为判断条件,因为计算机精度问题.最小数值:Number.Min_value :5e-324.
+
+47.字符串重新赋值时,会在内存栈中重新开辟空间,所以大量字符的拼接会消耗内存.
+
+48.null undefined是没有toString()属性.
+String()什么类型都可以转换.
+toString(2)可以把数值转换成2进制的字符串.
+boolean隐式转换: !!取反的取反!
+
+49.switch语句做的是全等比较(===).
+
+50.linear-gredient():css3渐变
+background:linear-gredient();
+linear-gradient( 45deg, blue, red );           /* 渐变轴为45°，从蓝色渐变到红色 */
+linear-gradient( to left top, blue, red);      /* 从右下到左上、从蓝色渐变到红色 */
+linear-gradient( 0deg, blue, green 40%, red ); /* 从下到上，从蓝色开始渐变、到高度40%位置是绿色渐变开始、最后以红色结束*/
+当linear-gradient( 0deg, blue 40%, green 40%,green 70%, red):这种写法,不会有渐变,但是会把背景色分成blue,green,red三个部分颜色.
+linear-gradient( 0deg, blue 40%, green 0,green 70%, red):当后面的位置值(green 0)小于前面时,默认使用前面的值(40%).
+background:linear-gradient(to bottom right, red, rgba(0,0,0,0));
+默认角度是180deg,从上往下.
+radial-gradient:径向渐变;
+radial-gradient([[<shape> || <size>] [at <position>]?,| at <position>,]?<color-stop>[,<color-stop>]+);	
+<shape>：主要用来定义径向渐变的形状。其主要包括两个值“circle”和“ellipse”：
+circle：如果<size>和<length>大小相等，那么径向渐变是一个圆形，也就是用来指定圆形的径向渐变
+ellipse：如果<size>和<length>大小不相等，那么径向渐变是一个椭圆形，也就是用来指定椭圆形的径向渐变。
+<size>：主要用来确定径向渐变的结束形状大小。如果省略了，其默认值为“farthest-corner”。可以给其显式的设置一些关键词，主要有：
+closest-side：指定径向渐变的半径长度为从圆心到离圆心最近的边；
+closest-corner：指定径向渐变的半径长度为从圆心到离圆心最近的角；
+farthest-side：指定径向渐变的半径长度为从圆心到离圆心最远的边；
+farthest-corner：指定径向渐变的半径长度为从圆心到离圆心最远的角；
+
+radial-gradient:(形状(“circle”和“ellipse(椭圆))at 圆心点x,圆心点y,渐变的颜色 渐变范围,渐变颜色 渐变范围).
+repeating-radial-gradient:重复渐变
+repeating-linear-gradient.
+linear-gredient()该属性是针对图片,所以用时必须放在图片属性里.
+
+51.<figure>标签规定独立的流内容(图像,图表,照片,代码等等)figure元素的内容应该与主内容有关,删除后不应对文档流
+产生影响 
+<figcaption>为figure元素添加标题,一般放在figure标’的第一或最后的位子.
+
+52.了解浏览器层叠各个样式的顺序:
+浏览器默认样式表—->用户样式表(这对于视障用户很重要)—->作者链接样式表—->作者嵌入样式表—->作者行内样式表 浏览器会依次检查5个来源,匹配并且更新有定义的值,声明也可以通过,!important增加权重,例如a{font-size:30px;color:red !important;}这里a的color值会始终设置成red,而忽略5个样式表.
+层叠规则:首先比较权重,如果权重相同,比较样式表(内联,嵌入,链接),在同一样式表中,后者覆盖前者.
+
+53.弹性布局:
+设置弹性布局,使用单位em,浏览器放大缩小,整个布局会等比例缩小也就是页面不会崩溃.注意点:
+1、浏览器的默认字体大小是16px;
+2、如果元素自身没有设置字体大小，那么元素自身上的所有属性值如“boder、width、height、padding、margin、line-height”等值，我们都可以按下面的公式来计算:需要转换的像素值/父元素的font-size;
+3.这一种千万要慢慢理解，不然很容易与第二点混了。如果元素设置了字体大小，那么字体大小的转换依旧按第二条公式计算，也就是下面的:需要转换的像素值/父元素的font-size;那么元素设置了字体大小，此元素的其他属性，如“border、width、height、padding、margin、line-height”计算就需要按照下面的公式来计算：需要转换的像素值/元素自身的font-size;
+
+54.currentColor
+
+55.E:nth-child(n):匹配的E必须是其父元素的第n个元素.
+
+56.数组里可以创建任意数据类型,包括函数,数组.若数组为后者赋值,前者没赋值时,前者的值是undefined.用构造函数创建数组时,参数只有一个时,代表数组的长度.
+
+unshift(),push()向数组第一个和最后一个添加;
+
+shift(),pop()向数组第一个和最后一个删除.
+
+delete arr[0]删除数组第一个数,保留下标.
+
+join()数组转化成字符串,默认”,”连接;
+
+reverse()翻转数组.
+
+filter(callback[, thisArg])数组迭代.
+
+slice(0,2)截取数组,索引0可以取到,索引2取不到,不会改变原数组.如果slice只有一个参数slice(1),那么就是截取从索引1到最后所有的字符串;
+
+splice(start, deletCount,items)从索引start开始,截取deletCount个数的元素,items往删除位置添加元素,可以添加多个,用逗号隔开,原数组改变.
+
+findIndex() 方法返回传入一个测试条件（函数）符合条件的数组第一个元素位置。
+findIndex() 方法为数组中的每个元素都调用一次函数执行：
+当数组中的元素在测试条件时返回 true 时, findIndex() 返回符合条件的元素的索引位置，之后的值不会再调用执行函数。
+如果没有符合条件的元素返回 -1
+注意: findIndex() 对于空数组，函数是不会执行的。
+注意: findIndex() 并没有改变数组的原始值。
+
+replace()数组/字符串替换,不改变原数组(扩展应用:可以搜索用户发表的文章,把其中关键字替换成链接可以跳转).
+
+substring(start,end):字符串,从start位置开始,截取end位置取不到;
+
+substr(start,length):字符串,从start位置开始,截取length长度.
+
+charAt():字符串,获取指定位置的字符.
+
+trim():只能去掉字符串两端的空白符.
+
+includes():判断字符串中是否包含指定的字符串;参数一包含指定字符串,参数二可选,表示从第几个字符开始匹配;
+
+startsWith();//判断字符串是否以特定的字符串开始
+
+endsWith();//判断字符串是否以特定的字符串结束
+
+split():按照指定字符对字符串进行切割,返回一个数组.
+
+delete:操作符用于删除对象的成员变量，不能删除函数的参数
+
+a.concat(b):拼接数组把b数组整体加入数组a后面.可以多个参数,concat(b,c,d):直接把bcd放入a后,a,b,c,d.该方法不改变原数组.
+
+forEach(function(element,index,array){});
+
+arr.reduce():Array的reduce()把一个函数作用在这个Array的[x1, x2, x3...]上，这个函数必须接收两个参数，reduce()把结果继续和序列的下一个元素做累积计算，其效果就是：
+[x1, x2, x3, x4].reduce(f) = f(f(f(x1, x2), x3), x4)
+可以用来数组求和之类操作;
+
+findIndex(()=>{}):返回符合要求的数组索引;
+
+push(),unshift()返回值是数组长度,pop(),shift()返回值是,删除的元素.
+
+arr. length更改length值会改变数组长度.
+向数组内置对象添加方法!!!!!!Array.prototype.functionName = function(){};
+pop()和shift()返回值的是被删除的项目,push和unshift返回值是返回新数组的长度.
+
+57.数组的函数indexOf(),可以查找指定的值在不在数组中,如果不在返回-1;如果在返回第一个值得索引(如果一个数组中存在多个值的话).lastIndexOf()找到最后一个出现的位置.indexOf(“a”,1)从索引1位置开始找,包括1位置
+
+58. 函数:可以实现特定的功能,是多条语句的封装体,使语句更加灵活简洁.console.log调用函数名(不加括号)是打印函数声明.函数声明提升,会把函数的声明提升到最顶端.变量声明提升,会把变量的声明提升到最顶端,但是只提升声明,不提升赋值.
+所以,利用函数表达式建立函数时,调用在建立之前会报错.如果函数的实参多于形参,多余的忽略;形参多于实参,多余的undefined.
+
+59.在函数内部定义变量时,不加var是隐式的全局变量(本质是属性赋值,可以用delete删除,而变量是删除不了的),但是不建议这样写.注意在函数内部这样定义 var a = b = 10,a是局部变量,b是隐式全局变量;
+
+60.arguments 实参数组集合,和形参没有任何关系,arguments是伪数组,可以使用length属性,但是没法用数组的方法.
+
+61.函数的回调,就是函数以参数的形式传递进入另一个函数.
+
+62.键值对数据结构特征:以空间换时间.
+
+63.创建对象可以有工厂模式创建,也有构造函数的模式创建还有其他的创建方式.
+
+63.对象的属性可以保存对象.
+
+64.for(var i in obj)for in 循环遍历对象.
+
+65.函数带()才是执行函数.
+
+66.css选择器 A>B表示选择A元素的所有子元素,与A B的区别在于A B选择所有的后代元素,而A>B只选择一代,没有<用法
+
+67.A instanceof B:是不是通过B创建出来的实例,即实例对象的原型链和构造函数的原型链是否在一条原型链上;
+
+68.全局上下文中(在所有函数的外部) this指的是全局对象window;在函数的上下文(在某个函数的内部) this指的是当前函数所属的对象,当函数没有对象时,所属window.
+根据函数的四种调用方式判断this指向:
+A.函数模式 => window
+B.方法模式 => 当前调用的对象
+C.构造器模式 => 指向创建出来的对象
+D.上下文模式(call,apply) => AB模式的 
+
+
+69.arr.valueOf():返回数组本身//对象也可以使用该方法,
+toString():把数组转换成字符串,
+join():把数组的每一项进行字符串拼接,默认以逗号拼接;
+检测数组:arr instanceof Array;
+Array.isArray()//ES5方法,低版本浏览器不兼容.
+
+70.console.dir()以对象的形式展示,可以在控制台看到对象有哪些属性.
+
+71.阻止a标签跳转:
+A.onclick = “return false”;
+B.<a href=“javasript:viod(0);”></a>
+C.利用 事件对象 e.preventDefault()给a注册点击事件;
+
+72.事件源.事件 = function(){事件处理程序};事件三要素;
+onfocus:获取焦点;
+onblur:失去焦点;
+oninput:每次文本框输入内容是触发一次事件;
+onchange:当文本框内容改变并且失去焦点时会触发一次;
+getElements获取到的是集合,即伪数组.不是数组.
+getElementById不能被普通的元素对象调用,只能被document调用.
+
+73.使用className属性时,注意当你赋值时,只会元素的类名会被clssName属性值覆盖
+
+74.innerHTML获取内部html;innerText获取内部文本.注意innerHTML后面全是大写!!!
+
+innerHTML符合规则的`文本会变成标签.innerText即使是符合标签的规则的文本也会变成纯文本.
+box.innerHTML=“<h1>title</h1>”;box.innerText=“<h1>title</h1>”
+
+75.textContent和innerText:浏览器支持问题;谷歌俩个都支持;新版火狐都支持,旧版只支持textContent;新版IE都支持,旧版IE支持innerText.代理检测和能力检测;if(typeof box.innerText === “string”)
+
+76.禁用文本框,disabled.type属性.
+
+77.大量拼接字符串优化:可以放在数组中,利用join()方法.
+
+78.排他思想:干掉所有,留下自己.
+
+79.当循环赋值事件时,后面需要用到当前对象的索引值,因为此时i的值已经最大,所以后面需要用到索引值时.可以为对象添加index属性,把索引值赋值给index属性,后面需要用到索引值时,就可以用index属性的值.
+
+80.当写函数时,注意变量提升.有可能因为这个原因导致打印变量是undefined.
+
+81.通过obj.style设置样式时,是行内样式,注意权重.
+
+82.标准中,有规定的属性,标签里的属性会映射到对应的属性;
+
+83.getAttribute()可以获得没有规定和有规定的属性;setAttribute():可以设置标准中有和没有规定的属性;removeAttribute():可以移除任何标签中的属性.
+
+84.childNodes:子节点,包含文本节点;属性nodeType,nodeName,nodeValue;ul.chidren子元素.
+元素节点:1 元素节点的nodeValue值都是null,标签名
+属性节点:2,属性值,属性名.
+文本节点:3,文本内容,#text
+注释节点:8 注释内容,#comment.
+
+85.onkeyup:键盘弹起事件,onkeydown:键盘按下事件.
+
+86.nextSibling:下一个兄弟节点(有可能获取文本节点);nextElementSibling:下一个兄弟元素. 
+
+87.box.style.width:获取和设置的是行内样式属性; 
+
+88.层级zIndex需要设置定位才能生效.
+
+89.判断元素value的值时,是字符类型.
+
+90.table表格操作:insertRow(n):在n行后插入一行;deleteRow(n):删除n行;insertCell():给新的一行添加td.
+
+91.select下拉列表操作
+selectedIndex属性:获取当前选中的select的索引.
+option[i].text:获取option里的文本内容.
+selectName.option.length:获取select下拉列表中的option个数,当length = 1时,option也只有一个!!所以length属性可以删除数组!
+具体操作:
+1)添加option选项:
+obj.add(new Option("文本","值")); //这个只能在IE中有效 
+obj.options.add(new Option("text","value")); //这个兼容IE与firefox 
+2)删除所有的option:
+obj.options.length=0; 
+3)删除一个选项option:
+var index=obj.selectedIndex; 
+obj.options.remove(index); 
+4) 获得选项option的值 
+var index=obj.selectedIndex; //序号，取当前选中选项的序号 
+var val = obj.options[index].value; 
+5)获得选项option的文本 
+var index=obj.selectedIndex; //序号，取当前选中选项的序号 
+var val = obj.options[index].text; 
+6) 修改选项option 
+var index=obj.selectedIndex; //序号，取当前选中选项的序号 
+var val = obj.options[index]=new Option("新文本","新值"); 
+7)option.selected:判断option是否被选择.
+
+92.Html Dom add()方法是往select里面添加option;selectObject.add(option,before)option和before都是必需。before在选项数组的该元素之前增加新的元素。如果该参数是null，元素添加到选项数组的末尾。
+
+93.函数的命名三种方法:1)函数名命名;2)函数表达式;3)匿名函数.
+自执行函数函数:(function(){…})()或者写作(function(){…}()),当页面加载时就执行,只执行一次.
+
+94.father.insertBefore(demo,son):插入到前面,把demo放入son前面
+
+95.cloneNode(boolean):true:全部克隆包括里面元素,false:只克隆外层.
+
+96.removeChild():移除子节点.
+
+97.father.firstElementChild:第一个子元素.father.lastElementChild;
+
+98.appendChild():当需要追加的元素已经存在时,直接从原有的位置删除,追加到另一个元素上.也就是说直接把html结构直接移过去
+
+99.当对类似数组的操作时,每删除数组内的元素时,length的长度会改变,尤其在使用for循环时,注意.
+
+100.trim():异常字符串的首末空格;
+trim(‘  hello ‘);//‘hello’
+
+101.window.open(“http://www.baidu.com”,”_blank(or)_self”,”width=200px.height=200px”)1)参数2)地址3)宽高
+
+102.window.close():关闭当前窗口.
+关闭指定窗口:win = window.open();win.close();
+
+103.定时器1)延时定时器:setTimeout(code(or)callback, time)单位毫秒;
+2)清除定时器:clearTimeout(number);
+
+104.setInterval(callback,time)间歇定时器;clearInterval(); 一般在用定期器之前都要清除定时器.因为多次点击会加速变化.
+
+105.navigator.userAgent:用户代理;
+
+106.js中display属性设置成none时,可以把属性值改为block,让其显示.
+
+107.var date = new Date();date.valueOf();可以把时间对象换成数值形式,13位数字,意义为从1970-1-1,0时
+到现在过去的毫秒数.Date.now()直接打印数值,也可以在创建时,隐式转换(var date = +new Date()).
+
+108.日期转换
+var date = new Date(“2016-5-5”),date = new Date(“2016,5,5”),或者毫秒数,或者 date.parse(“2016,5,5”).
+
+109.基本包装类型string,number,boolean.
+
+110.js是没有块级作用域,也就是for语句中,在外面也可以打印出i或者里面定义的变量.
+
+111.对象的属性如果以数组的形式取值时,obj[atrribute]:里面必须是字符串,否则就会查找该变量,用该变量对应的值作为键;用字面量的形式定义属性时,属性名可以不加引号,但是用数组使用时,必须是字符串;
+
+112.排他思想,用于onclick函数,onmouseover是不需要排他的,因为有onmouseout的存在(如果不用out,可以使用排他思想).
+
+113.offsetWidth,offsetHeight:获取自身高度和宽度
+style.height只能获取行内样式的高度,而且获取到的是字符串有单位,注意:只有在行内设置了height才会获取到.
+offsetWidth获取到的是客观宽度,而且是数值.
+offsetWidth是只读属性,不能设置.
+offsetHeight:获取的是height+padding+border.
+
+114.offsetParent:距离自身最近的,带有定位的父级,如果没有定位,就往上找,直到找到body为止.
+
+115.offsetLeft:首先向上找到有定位的盒子,然后计算从子盒子border-left左侧到父盒子的padding-left左侧;
+没有加定位,style.left获取到的值可能无效,而且是从margin-left左侧开始计算.
+offsetLeft:取值时,会就近取整,不会是小数.
+offsetTop:同上;没有offsetButtom和offsetRight;
+
+116.谷歌页面捕获 控制台 cmd + shift + P 输入capture full size screenshot.
+
+117.display:block时,不能设置vertical-align;
+
+118.绝对定位,元素脱离标准流,宽度不会继承.
+
+119.scrollHeight和scrollLeft:对象内部内容的实际高度.
+
+120.window.getComputedStyle(ele,persudoEle).left;这个是获取元素最终的样式,可以不管是不是行内样式.只获取最终样式.
+ie不支持,使用obj.currentStyle,但是谷歌不支持.如果不是伪元素则后值为null.
+
+121.div设置背景图,如果div宽高是auto或者是没有设置,背景图不会显示.
+
+122.clientWidth:可视区域宽度,包括padding+content,不包括边框.
+
+123.documentElement:指的是html标签.
+
+124.onresize:窗口改变大小触发事件.
+
+125.document.onlick = function (event){}事件对象.
+
+126.pageX是指页面的x值,不管滚动条在哪,都是按从整个页面顶部计算.clientX当前可视化区域的x值,screenX是指屏幕的x值.
+
+127.onscroll事件是指有滚动条时触发,onmousewheel指鼠标滚轮事件,其中wheelDelta属性可以通过正负判断鼠标滚轮是向上还是向下滑动,可以用于导航栏鼠标向下滑动下拉,鼠标向上滑动,收缩.还有屏幕鼠标滑动,屏幕切换.
+
+128.event = event || window.event;
+pageX = event.pageX || event.clientX + document.documentElement.scrollLeft;
+var scrollTop = window.pageYOffset || document.documentElement.scrollTop ||document.body.scrollTop || 0;
+
+129.浮动和绝对定位同时对一个盒子设置时,只有绝对定位定位有效.
+
+130.background-attachment:设置背景图是否随页面滚动,参数:scroll,fixed.
+
+131.当一个盒子设置了浮动,其中子盒子设置了绝对定位,那么即使父盒子没有设置相对定位,而父盒子的父盒子有相对定位,它也是在父盒子的的顶部,但是,如果设置了top left值,那么该位置是以父盒子的父盒子作为参考定位.
+
+132.事件冒泡,阻止冒泡,event.stopPropagation();
+
+133.event.target:可以找到真正触发事件的元素.
+兼容:var target = event.target || event.srcElement.
+target.id可以获得id.
+
+134.addEventListener(事件类型(字符串,不加on),事件处理函数,是否使用捕获).
+btn.addEventListener(“canlick”,function(){},false):添加事件监听器的方式注册事件,不会相互抵消,但是有兼容问题.IE678 btn.attachEvent(“onclick”,function(){}).移除事件监听器 removeEventListener();IE678 detachEvent.
+
+135.事件阶段,event.eventParse.事件发生时,浏览器默认执行的三个阶段:1捕获阶段,2目标阶段3冒泡阶段.
+
+136.onkeypress:键盘按压与onkeydown的区别:1,onkeydown先与onkeypress执行,2.onkeypress不识别系统按键如shift,3.onkeypress识别大小写,4.onkeypress输出的是keyCode(AscII码),onkeydown是keyCode(键盘码).
+
+137.obj.focus():元素获取焦点.
+
+138.oninput:在输入的时候执行,onchange:失去焦点后,如果表单元素内容发生改变,就执行.
+
+139.正则表达式:
+1)var regEx = new RegExp(/\d/); /\d/:预定义类,表示数字 digit,只要有数字就可以.内置方法test();”.”是除了回车和换行以外的任意字符.
+2)[abc]表示一个字符,每次只取一个匹配(简单类).[^]:表示取反,与限制开头区别.
+3)/^chuan$/:^只限制开头,开头必须是chuan,$只限制结尾.
+4)/^a*$/:表示a可以出现0次或者多次.”+”表示出现一次或者多次,0次不行,”?”:重复出现0次或者1次.
+5)自定义出现次数:/^a{2}$/:a可以出现2次;/^a{2,}$/:2次或者更多;/^a{2,5}$/出现啊a>=2并且a<=5.
+6)/^[1-9][0-9]*$/:”*”仅修饰紧挨着的字符[0-9],不会修饰[1-9].类似的”+”,”?”也是同样的.
+7)/\d/g, global.
+8)|:表示或;用法:正则表达式|正则表达式
+9)\s:空白字符,包括空格,tab,回车换行等;
+\S:非空白字符;
+js中使用[\s\S]:表示任意字符
+10)\w:表示字符,包含字母,数字,下划线;
+\W:表示非字符;
+11)\d:表示数字;
+\D:表示非数字;
+12)(?:其他正则表达式内容):匹配但不去捕获(提取)元字符;
+
+提取:
+语法:正则表达式对象.exec(字符串) -> 封装成数组;
+
+循环提取:
+var r = /\d+/g;//var r = new RegExp(“\\d+”,”g”);
+while (res = r.exec( str )){
+    对提取的字符串进行操作;
+}
+由于加了”g”全局,那么多次执行exec()时,下次执行会从lastIndex位置开始执行,当使用while进行循环获取时,一定加全局,加了之后exec执行到最后会是null跳出循环,不然陷入死循环(当正则表达式使用 "g" 标志时，可以多次执行 exec 方法来查找同一个字符串中的成功匹配。当你这样做时，查找将从正则表达式的 lastIndex 属性指定的位置开始.);
+如果有时候获取不到exec返回的数组,那么有可能是全局时,exec执行完,下次执行会是null所以获取不到,此时可以设置r.lastIndex属性,把匹配索引重置到0;
+
+分组提取:当我们设置正则表达式的时候,可以使用()进行分组,当提取的结果出现时候,()分组内容也会出现在提取的结果中;
+正则表达式中,分组是有编号的,从左往右数”(”,从1开始依次编号;
+
+反向引用:\1表示引用正则表’式的第一个分组作为需要匹配的内容;
+’果在一个正则表达式中使用组匹配到某一个数据,允许在该表达式中使用”\数字”的方式引用该组;
+
+贪婪模式:凡是在正则表达式中,涉及到次数限定的,一般默认都是尽可能多的匹配;
+取消贪婪模式,在次数限定符后面加上”?”;
+注意:贪婪模式性能略高于非贪婪模式,所以在开发的时候,一般不考虑贪婪的问题,只有在代码匹配结果出现问题了,一般一次多匹配了,才会取消贪婪;
+
+多个贪婪在一起时的强度:
+\d+\d+\d+ 123456 -> 1234 5 6;
+\d+?\d+\d+ 123456 -> 1 2345 6;
+\d+?\d+?\d+ 123456 -> 1 2 3456;
+
+正则替换:
+语法:
+1)字符串.replace(查找字符串,替换字符串) ->返回替换后的字符串
+2)字符串.replace(正则表达式,替换字符串) 
+
+简单替换:
+‘aaa0000bbbb0000bccc’.replace(/-+/,’-’);
+‘aaa0000bbbb0000bccc’.replace(/-+/g,’-’);
+
+分组替换:
+可以在替换字符串中,使用”$数字”来引用替换数据;
+‘abc123’.replace(/(\d+)/,’d$1’) ->’abcd123’;
+
+函数参数用法:
+语法:
+字符串.replace(正则表达式,fn); fn的参数即为前面分组匹配的数组res[0],res[1]…;fn的返回值就是替换内容;
+
+140.hover前面有空格和没有空格有不一样的效果，:hover前面没有空格，影响的只是该元素的兄弟节点；但是，如果前面有了一个空格，那效果就大大不一样了，有个空格影响的就是 该元素下面的子节点了。
+
+141.用css3的transition完成鼠标离开后延迟消失特效,在原样式上设置transition-delay,在hover样式山设置transition:none;原理:当鼠标放置时,会出现放置样式,当鼠标离开后,因为给原样式设置了延时,所以,原样式会延时出现,这就导致会造成延时消失特效.
+
+142.文字渐变特效:
+    background: linear-gradient(#f0edf2 50%, rgba(240, 237, 242, 0));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+只支持webkit核心浏览器,注意书写顺序.
+
+143.video标签完全填充object-fit:fill;
+
+144.-- 用来清除默认选中文字
+window.getSelection window.getSelection().removeAllRanges() :document.selection.empty();
+// CSS 禁止文字被鼠标选中
+-moz-user-select: -moz-none; 
+-moz-user-select: none; 
+-o-user-select:none; 
+-khtml-user-select:none; 
+-webkit-user-select:none; 
+-ms-user-select:none; 
+user-select:none;
+
+145.svg路径动画制作
+stroke-dasharray代表虚线之间的间距大小
+stroke-dashoffset代表虚线的偏移量
+实现过程:
+1)设置一个足够长的间距 （大于路径的长度）
+2)设置一个足够长的偏移量，保证刚开始看不到路径。（可以和长度一样）
+3)让偏移变成0 最后在配合css3的animation 增加一个动画过度，实现动画。
+
+146.IE9及以上浏览器才支持h5(IE9只支持部分内容,比如语义标签main解析为行级元素,IE10才完全支持h5).h5增加了新特性:语义特性,本地存储特性,网页多媒体(video,audio,canvas),二维三维,特效(过渡,动画).
+
+147.表单新类型type:email(提供了电子邮件的完整验证),tel(并不是实现验证,本质目的是为了能够在移动端打开数字键盘,意味着数字键盘限制了用户只能输入数字),url(提供了类似email的验证方式,必须包含http://),number(只能输入数字,不能输入其他字符.包含了上下移动箭头,max:最大值.min:最小值.vaule:默认值),search(可以提供更加人性化的体验),range(max.min.value),color,time,date,datetime(只有safari支持),datetime-local(一般使用这个),month,week.
+
+148.表单新属性:placeholder(提示文本比如”请输入用户名”),autofocus(自动获取焦点),autocomplete(自动完成,on:打开.off:关闭.1).必须成功提交过才会记录,2).当前添加autocomplete必须有name属性),required(必须输入,如果没有输入,阻止提交),pattern(正则验证),multiple(可以多选文件,在email中允许输入多个邮箱的地址,用逗号分隔),form(指定表单id,将来指定的id的表单进行数据提交的时候,一起提交)
+
+149.1)表单元素必须被form元素包裹,2)为了区分不同的表单元素,每个表单元素要添加name属性.
+
+150.表单新元素:datelist 通过给input元素添加list属性,关联两个元素.keygen:加密.
+output:有语义化的span标签(展示内容).
+<input id="myCar" list="cars" />
+<datalist id="cars">
+  <option value="BMW">
+  <option value="Ford">
+  <option value="Volvo">
+</datalist>
+
+151.新事件:oninput:监听当前元素内容的改变.oninvalid:当验证不通过时触发,this.setCustomValidity():设置不通过时的提示信息.
+
+152.进度条:<progress max=“100” value=“50”></progress>
+度量器<meter max min low high value></meter>
+
+153.video的poster属性,设置视频未下载完,或者用户没有点击播放时,默认显示视频文件的第一帧,通过该属性可以显示指定图片.video的注意事项:视频始终会保持原始的高宽比.不同浏览器支持的视频类型不同,通过多个source添加多个播放源来让浏览器自适应格式.
+
+154.document.querySelector(“ul li”):获取单个元素,如果不止一个,那么返回满足条件的第一个元素,或者querySelector(“.cls”) 
+querySelector(“#cls”);document.querySelectorAll(“li”)返回所有的li标签数组,或者添加索引返回固定元素document.querySelectorAll(“li”)[0].
+
+155.classList.add():为元素添加样式,如果已有类名则不会添加,一次可以添加多个类名;
+classList.remove();//可以一次传入多个参数,删除多个类名
+classList.toggle();
+classList.contains():判断是否包含类名,返回true,false.
+classList.replace(str1,str2):类名替换;
+IssList.item(0):获取样式.
+
+156.自定义属性:data开头 小写.data-school-name=“njupt”.获取属性dataset[“schoolName”].
+js设置属性注意dataset[“schoolName”]=“njupt”与dataset[“schoolname”]=“njupt”的区别.
+
+157.ononline和onoffline事件,配合addEventListener使用兼容移动端.
+
+158.全屏方法属性:
+requestFullScreen():开启全屏显示
+cancelFullScreen():推出全屏显示
+fullScreenElement:是否是全屏状态
+开启全屏不同浏览器需要添加不同前缀使用,如webkitRequestFullScreen(),mozRequestFullScreen().
+退出全屏也与前者类似,但是,调用对象为document.
+
+159.文件读取:FileReader;
+var reader = new FileReader(); 
+readAsText():读取文本文件.
+readAsBinaryString():读取任意类型文件,返回二进制字符串,这个不是用来读取文件,而是存储文件.
+readAsDataURL()
+abort():中断读取.
+
+160.在h5如果想要元素可以拖拽,需要在元素上添加draggable=“true”.图片和超链接默认可以拖拽.
+拖拽元素事件:  ondrag  ondragstart  ondragend  ondragleave;
+目标元素事件:  ondragenter  ondragleave  ondragover  ondrop; 
+
+ondrag:拖拽整个过程中都触发,但是开始时, ondragstart触发会比ondrag早.
+
+ondragstart:拖拽刚刚开始时,触发.
+
+ondragleave:指鼠标离开拖拽的元素时,触发.
+
+ondragover:指鼠标放在需要放置的元素时,触发.
+
+拖放元素 丢到 容器内 会触发 ondrop事件
+如果没有在 ondragover中 阻止默认行为那么无法触发ondrop事件
+
+拖动生命周期 	  属性 	   值 	             描述
+拖动开始 	ondragstart 	script 	   在拖动操作开始时执行脚本（对象是被拖拽元素）
+拖动过程中 	ondrag 	script 	   只要脚本在被拖动就允许脚本（对象是被拖拽元素）
+拖动过程中 	ondragenter 	script 	   当元素被拖动到一个合法的放置目标时，执行脚本（对象是目标元素）
+拖动过程中 	ondragover 	script 	   只要元素正在合法的放置目标上拖动时，就执行脚本（对象是目标元素）
+拖动过程中 	ondragleave 	script 	   当元素离开合法的放置目标时（对象是目标元素）
+拖动结束 	ondrop 	script 	   将被拖拽元素放在目标元素内时运行脚本（对象是目标元素）
+拖动结束 	ondragend 	script 	   在拖动操作结束时运行脚本（对象是被拖拽元素）
+
+161.e.dataTransfer来实现数据的存储与获取
+e.dataTransfer.setData(format,data)
+format:数据类型,text/html,text/uri-list
+Data:数据,一般来说是字符串值
+e.dataTransfer.setData(“text/html”,e.target.id).
+通过这种方式存储的数据只能用于拖拽事件的ondrop事件.此种方式是拖拽事件特有的数据存储方式.
+ 
+162.sessionStorage:
+1)存储大小5mb左右,
+2)存储位置:在浏览器当前页面的内存中,当浏览器关闭后,数据自动消失.
+3)不同网页,不同浏览器之间不共享数据.
+localStorage:
+1)存储大小20mb左右,
+2)存储位置:存储在硬盘中,除非手动清除数据,否则则一直存在,
+3)同一浏览器的不同页面可以共享,但是不同浏览器不能共享.
+window.sessionStorage.setItem(key,value)
+getItem(key)
+removeItem(key)
+clear()
+
+163.video标签中,事件oncanplay:指视频可以播放时,触发的事件;ontimeupdate:当视频的currentTime改变时,会触发该事件.
+
+164.在jq中有offsetX和offsetY的事件对象属性.原生js也有,但是有兼容问题.
+
+165.在表单中给用户名用label标签包裹,用for属性关联后面输入框的id可以使鼠标点击到用户名字时,鼠标会自动聚焦到后面输入框.
+
+166.函数内的this,如果当前函数属于某个对象,那么函数内的this就是当前对象;否则就是window.
+
+167.在开发中first-child和last-child是不常用,因为开发中数据都是动态获取的,或者使用框架时,会动态添加元素,导致样式添加不上,可以使用first-of-type代替.
+
+168.nth-child(n):是从0-子元素长度开始,所以,选取前五个是-n+5.:empty选取元素的子元素为空,空格都没有.
+
+169.:target:为锚点元素添加样式,
+
+170.before,after主要作用是简化页面结构.在dom结构中找不到.在这两个伪元素中必须有content,即使为空.两个元素默认是行内元素,后期无法用js操作伪元素.单标签是没法添加伪元素.
+
+171.::section设置选则的样式,但是只能设置(background-color,color,text-shadow),不能设置大小.
+
+172.浮动元素不会覆盖行内元素和行内块元素.
+
+173.hsl:颜色(0-360),饱和度(0-100%),明度(0-100%,默认是50%,一般建议保留50%).
+
+174.border-radius:100px/50px;
+border-radius:有斜杠时(100px/150px)表示的是一个角的x,y值,如果是空格(100px 150px)表示左上,右下是以(100px/100px)画圆角,右上,左下是以(150px/150px)画圆角.
+border-radius:100px 80px 60px 40px/50px 40px 30px 20px;
+border-top-left-radius:100px 50px;
+
+175.box-shadow:h v blur spread color inset;
+h:水平方向偏移值.
+v:垂直方向偏移值.
+blur:模糊度,可选,默认为0.
+spread:阴影的尺寸,扩展和收缩阴影的大小,可选,默认0.
+color:可选,默认黑色.
+inset:内阴影,默认是外阴影.
+
+176.color:属性可以继承.
+
+177.background-repeat:
+round:会将图片进行缩放之后再平铺
+space:图片不会缩放,只是会在图片之间产生相同的间距值.
+
+background-attachment:
+local:背景图会跟随内容一起滚动
+fixed:背景图位置固定不变
+scroll:当滚动容器时.背景图一起滚动
+local和scroll区别:
+local:背景图会跟随内容一起滚动.
+scroll:背景图不会跟随内容一起滚动.
+
+background-size:设置背景图的大小,宽度/高度,宽度/auto(自适应缩放)
+contain:按比例调整图片的大小,使图片整个包含在容器内,有可能造成容器空白(满足宽度).
+cover:按比例调整图片的大小,使图片填满整个容器,容器不会有空白,但是背景图溢出(满足高度).
+
+background-origin:设置图片参考起点
+border-box:从border的位置开始填充背景,会与border重叠
+padding-box:从padding的位置开始填充背景,会与padding重叠
+content-box:从content的位置开始填充背景
+
+background-clip:设置内容的裁剪
+border-box:显示border及以内的内容
+padding-box:显示padding及以内的内容
+content-box显示content及以内的内容
+background-position:right top,left top;
+
+178.边框图片:
+border-image-source:url;边框图片路径
+border-image-slice:27 fill;设置四个方向上的裁剪距离,fill:做内容的内部填充.
+border-image-width:边框图片宽度.如果没有设置这个属性,那么宽度默认就是元素的原始宽度.
+border-image-outset:扩展边框.
+border-image-repeat:
+repeat:直接重复平铺
+round:将内容缩放进行完整重复平铺.
+stretch:默认,拉伸.
+缩写:
+border-image:spurce slice /width /outset repeat;
+
+179.过渡:过渡效果执行完毕后,默认会还原到原始状态.过渡效果只能从某个值到另外一个值得过渡,比如display就不能添加.
+transition-property:添加过渡效果的样式属性名称
+transition-duration:过渡效果耗时,单位s.
+transition-timing-function:时间函数.
+transition-delay:过渡效果延迟
+缩写:
+transition:属性名称 过渡时间 时间函数 延迟
+多个样式添加过渡效果:transition:属性名称 过渡时间 时间函数 延迟,属性名称 过渡时间 时间函数 延迟;
+为所有样式添加过渡效果:
+transition:all 过渡时间 时间函数 延迟;
+transition:all 过渡时间 时间函数 延迟 steps(4);steps:分几步完成.
+在做过渡时,如果属性的初始值是auto,必须给个初始值,比如left.
+
+180.transform:执行完毕后还原到初始状态.一般先位移,后旋转,如果反之,先旋转,后移动,那么先旋转会造成坐标轴一起旋转,导致位移方向不对.
+translate(50%,50%):百分比是以自身的50%,translate结合定位,可以达到元素垂直居中,这样可以不用具体数值.
+transform-origin; 
+scale():缩放中心是元素中心点.缩放仅仅是看起来缩放,元素所占的空间还是不变的,同时旋转也是所占据原来的空间是不变的.
+
+181.三种块元素的垂直居中方式
+1)定位+margin;
+2)translate(50%,50%);left:50%;top:50%;;
+3)margin:auto;left:0;right:0;top:0;bottom:0;
+
+
+182.当一个盒子拉伸(skew(45deg))时,里面内容也随之拉伸,如果不想内容拉伸,那么给内容反向拉伸(skew(-45deg)),内容就会变正.
+
+183.设置缺角矩形:
+ div{
+    width: 200px;
+    height: 200px;
+    border: 1px solid blue;
+    background-image:
+    linear-gradient(-45deg,red 90%,transparent 0),
+    linear-gradient(45deg,red 90%,transparent 0),
+    linear-gradient(-135deg,red 90%,transparent 0),
+    linear-gradient(135deg,red 90%,transparent 0);
+    background-size: 100px 100px;
+    background-repeat: no-repeat;
+    background-position: left top,right top,left bottom,right bottom;
+        }
+184.盒子弹起特效:给盒子添加盒子阴影.
+
+185.transform-style:preserve-3d:保留3d效果.给有3d效果元素的父盒子添加,添加之后相当于这个元素从一张纸,变成了三维立体空间.
+perspective:景深透视.
+perspective-origin:100px 10px:设置观察视角.
+
+186.animation-direction:alternate;交替动画.
+animation-fill-mode:forwards;保留动画结束时的状态.
+backwards:在添加动画延迟的前提下,如果动画有初始状态(0%),那么会立刻进行到初始状态(0%),但是不会保留结束状态.
+both:以上两个效果都有.
+animation-play-state:动画播放状态;
+paused;
+running; 
+animation-timing-function:有steps(),linear.
+
+187.多列布局:
+column-count:3;设置最大列数,如果窗口缩小,会自适应列数;
+column-rule:添加列间隙样式,与边框样式一样;
+column-rule:dashed 3px red;
+column-gap:50px;两列之间的间隙;
+column-width:设置列宽,如果人为设置,则取大值,但是,最后列的宽度不一定是设置值,因为会自适应完全填充页面不会留空白.
+column-span:取值两种,1或all;设置占的列数,要么一列,要么一行.
+
+188.addEventListener(“webkitTransitionEnd”,function(){}):当对象过渡效果结束时,触发这个事件,有兼容问题,需要加浏览器前缀.
+
+189.交集选择器:.cls.current;一个元素需要同时有这两个类名.
+
+190.img图片默认是以自己的底线对齐父盒子的的基线,所以在图片下部会有空隙,处理方法:设置img父盒子的字体大小为0,或者变成块元素.
+
+191.多个行内元素或行内块元素在代码中如果连在一起写没有间隙,如果在代码中换行那么默认每个元素之间会有空格,处理方法:父元素字体为0px,再设置子元素字体大小,
+
+192.当浏览器最小化时,定时器会进行,但是js渲染会停止,所以再次打开浏览器时,会造成不同步,此时利用webkitvisibitychange()判断浏览器状态.
+
+193.当给出的背景图是2倍图或者更大时,利用background-size属性,让背景图变小.
+
+194.一次性函数写法(function(){}())或者(function(){})();这里通过创建函数来创建新的作用域,避免设置全局变量污染全局作用域
+
+195.在声明一个函数时,有回调函数时,当有就调用,没有就不调用,我们可以用短路操作 callback$$callback();
+
+196.html5shiv.min.js该js文件解决ie9以下不兼容h5标签. respond.js文件解决ie不兼容响应式布局文件.
+引用这两个文件时,需要判断   <!--[if IE 9]><![endif]-->
+
+197.伪元素必须要求父元素有具体的宽高值,也就是在在样式中设置了width和height;
+
+198.rem是css3新增的一种长度单位,它是参照元素(html)的字号,em是参照当前元素的字号,如果没有,向上寻找字号;在设计中一般是采用rem为单位.
+
+199.伪类的书写顺序:link>visited>focus>hover>active;
+
+200.利用typeof 查询function,object,Date,Array时,除了function打印出来是function类型,其他打印出来的都是object类型. 若要打印出对应的类型,使用Object.prototype.toString.apply(查询类型)
+
+201. 使用原型是因为构造器在创建对象的时候,会有成员重复,占用资源.
+解决方法:
+1)将这个函数写在外面,那么对象在初始化中不会再创建函数了;
+2)原型
+
+202.原型本质来说是一个对象,当一个函数创建出来,系统会自动为这个函数创建一个原型对象,原型对象来实现继承;
+可以通过构造函数的prototype属性访问原型,因为构造函数的prototype属性保存了原型对象的地址.原型可以用来保存数据或者功能;
+在原型上添加了一些方法,这些方法就可以被构造函数创建出来的对象直接使用,像这种方式实现的效果,我们就说构造函数创建的对象继承了原型中的方法;  
+添加原型的两种方法:
+1)Person.prototype.eat = function (){…};
+2)Person.prototype = {
+	constructor:Person,
+	eat:function(){…}
+}
+第二种方法与第一种方法的区别在于,第二种方法里面的属性没有constructor属性,如果后面要用到constructor则第二方法不行,所以为了严谨,可以在第二种方法中手动加入constructor属性;
+
+203.__proto__(两个下划线)是实例对象访问原型的方式,prototype是构造函数访问原型的方式
+早期浏览器是不支持__proto__,火狐率先使用,但是是非标准的,现在基本浏览器都支持(ie8不支持);
+
+204.继承方式
+继承:实现代码的共享和复用;
+1)原型式继承,指的是实例对象可以直接访问原型对象上的所有成员,实例对象继承原型对象;
+2)混入:将一个对象(obj1)的成员添加到另外一个对象(obj2)中去,那么obj2继承了obj1;
+如果obj2和obj1有同名属性,那么obj1属性覆盖obj2;
+3)混合式继承:先给原型对象添加extend方法,调用原型对象的extend方法为原型对象混入其他的功能,创建实例对象,并且调用实例对象的方法(原型对象上的方法); 
+4)object.create();
+
+205.属性访问原则:
+对象首先在对象本身查找访问属性或调用方法,如果没有,寻找其原型对象,没有原型对象没有,向上寻找原型对象的原型对象,直至到Object.prototype,如果还没有返回undefined;
+
+206.在构造函数Person中,其原型对象中有constructor属性可以得知这个原型对象属于哪个构造函数,但是无法得知,实例对象是否继承某个原型对象,那么此时有方法判断该实例对象是否属于原型对象,例:Person.prototype.isPrototypeOf(person1);如果属于,返回true;
+
+207.访问原型的方式:
+function Person() {…};
+var p = new Person();
+1)Person.prototype;
+2)p.__proto__;
+3)p.constructor.prototype;
+第三种方式使用环境:因为第二种方式是非标准的,在低版本浏览器是不支持的,那么此时可以用第三种方式代替第二种方式;
+
+208.Object.getprototypeOf():可以获得原型的值;
+Object.getprototypeOf(p) === Person.prototype //true;
+Object.getprototypeOf(p).name // 可以获得p的原型对象中的name的值;
+
+209.Function的所有参数都是字符串,除了最后一个以外,都是生成的函数的参数,最后一个参数是函数体;
+
+210.函数名.name:获取函数名;
+函数名.length:获取定义函数时,函数设置的参数的个数;
+
+211.深拷贝和浅拷贝
+浅拷贝:是指把数据重新赋值一份赋值给另一个变量,两个变量之间是独立的个体;
+深拷贝:同样地,是指把数据重新赋值一份赋值给另一个变量,两个变量之间是独立的个体,但是对象中保存的函数或者对象的地址也不能一样;
+
+212.Object.create(对象):实现快速的继承,第四种方式;返回的对象满足:原型对象就是参数中的对象
+var o = { age : 19};
+var obj = Object.create(o);
+
+213.实例方法:就是实例对象的方法.就是实例对象可以调用的方法
+静态方法:就是使用函数名来调用的方法,此时我们说的静态方法是添加在函数对象上的一种方法
+
+214.eval可能会使用到的一个地方,在低版本浏览器中我们会使用eval进行转换,我们会使用eval将一个json字符串
+转换成对象;
+
+215.JSON:(JavaScript Object Notation)这是一种特殊的数据格式,
+1.str是JSON格式,转换成对象;
+var obj = eval(‘(‘ + str +‘)’);
+2.var obj2 = (new Function (’return’ + str))();
+3.var obj3 = JSON.parse(str);
+
+216.Function(函数对象)是Function(构造函数)的实例
+Function(是实例对象)其实就是由Function(构造函数)出来的;
+Function(构造函数)的原型属性就是Function.prototype;
+Function(实例对象)的原型对象就是Function.__proto__;
+
+217.方法,函数,静态方法,实例方法
+
+218.instanceof:判断构造函数的原型属性是否在对象的原型链上,即判断实例对象的原型和构造函数的原型是否在一条原型链上;
+当一个实例对象创建时,他的原型链就已经确定,当后来修改原型对象时,那么他们就不在一个原型链上了;
+
+219.预解析
+1)查看代码中是否有语法错误,如果有语法错误,那么直接报错,不会执行代码
+2)声明提升
+3)查看当前作用域范围
+
+220.
+1)语法错误(SyntaxError):符号写错,关键字写错,语法用错
+如果程序中出现了语法错误,整个程序不会执行任何代码;
+2)异常(ReferenceError,TypeError):引用变量不存在, 把属性当做方法来使用.
+如果程序中出现了异常,那么异常之前的代码可以正常运行,异常之后的代码无法运行;
+
+221.预解析如果在代码中有多个var 后面紧跟的名字都是一样的,那么只有一个var起作用,后面的自动忽略;
+
+222.在V8中获取一个对象的键名可以使用Object.keys(obj)方法,返回的是一个保存对象所有键名的数组;
+Array.isArray(arr);判断arr是否是数组;
+forEach:用于调用数组的每个元素，并将元素传递给回调函数,forEach对于空数组是不会执行回调函数的
+参数:element:必须:当前元素;index:可选,当前元素索引;array:可选,当前数组;无返回值;
+arr.forEach(function (element, index, array) {
+            array[index] = element + 1;
+        });
+arr.map():参数同上,可以有返回值,修改数组的每一项不会改变原数组;
+
+arr.filter();参数同上,return element>10;//返回符合要求的元素组成数组;
+
+some:判断数组中至少有一个数据符合要求,返回true,否则返回false;
+
+every:判断数组中所有数据符合要求,返回true,否则返回false;
+
+223.V8提供了JSON.stringify和JSON.parse方法对JSON数据来进行解码和编码;
+
+224.”a” in window:检查在全局作用域有没有a变量;
+var o = { name : “Jack”};
+“name” in o;
+
+225.表达式:
+将运算符和操作数连接起来的式子,就是一个有结果的代码单元(不包括语句)
+123 //字面量,有值是表达式,常量表达式
+a = 123 //赋值表达式
+
+226.当函数神声明语法嵌入表达式环境中,会自动进行转换,将转换成函数表达式;
+预解析函数声明时,先在当前作用域,给出一个变量名,并给标记,最后给这个变量赋值函数意义,所以函数声明比变量声明多一层意义,即除了变量声明,还表示该变量是个函数体;
+
+227.一个在新版本的浏览器中的特性:在语句块里写函数声明,好比:var fn = function() {…};但是与函数表达式不同的是,这个函数可以在语句块内部调用,但是函数表达式不能再语句块外调用;
+’do-while,if,for等语句块,尽量不要使用函数声明;
+
+228.词法作用域:就是根据预解析规则定义变量的使用范围,全部代码中,只有函数可以限定范围,其他均不能限定范围;
+三条准则:1)函数外部无法访问函数内部的变量,函数内部可以访问函数外部的变量,只有function可以限定作用域
+2)函数内部优先访问当前作用域的变量,如果没有就访问外部变量
+3)所有变量的访问规则,按照预解析规则来访问;
+函数定义参数,实际上就是在函数最开始的时候(在函数预解析之前),就有了该变量的声明;
+
+229.ECMAScript6新特性:
+1)let:特性:A.块级作用域;B.先声明后使用(不存在预解析);C.不可重复声明同名变量;
+
+2)const: 声明一个常量,不可改变其值;如果const来声明一个对象,那么它的意思是地址不可以改变;
+
+3)给函数参数设置默认值
+
+4)箭头函数:
+var res = () =>5;相当于:var res = function () {return 5};
+var res = (x,y) =>x+y;相当于:var res = function () {return x+y};
+var res = (x,y) => {var sum = 0;sum = x+y; return sum;};
+
+5)解构赋值
+数组的解构赋值
+var [a,b,c] = [1,2,3];
+var [a,b,c] = [,1,];
+let [a=11,b,c] = [,123,];//默认值
+
+对象解构赋值
+let{foo,bar} = {foo:”hi”,bar:123};
+
+对象属性别名(如果有了别名,那么原来的名字就无效)
+let{foo:abc,bar) = {bar:”hi”,foo:123};//console.log(abc,bar);
+let{foo:abc=“hi”,bar} = {bar:123};//对象默认值
+
+字符串的解构赋值
+let[a,b,c,d,e] = “hello”
+
+6)//反引号表示模板,模板中的内容可以有格式,${}插值,支持简单表达式;
+let tpl = `<div>${obj.name}</div>`
+
+7)参数默认值:
+function(str=“hi”)
+
+8)箭头函数注意事项:
+A.箭头函数中的this取决于函数的定义(即始终指向最外层window),而不是调用;
+B.箭头函数不可以new
+C.箭头函数不可以使用arguments获取参数列表,可以使用rest参数代替
+
+8)class 类与继承
+class Animal(){
+   constructor(name){
+      this.name = name;
+  }
+
+   run(){
+      
+  }
+}
+class cat extends Animal{}
+
+9)对象定义方法时可以这样定义:
+var app = {
+   go(){
+     console.log(1);
+  },
+  foo:function(){},
+  name:”jack”
+}
+
+10)padStart,padEnd()//操作字符串
+padStart(填充后总长度,”填充内容”);//在开始位置填充
+
+230.作用域链:当我们去函数访问一个变量的时候,先会在函数内部当前作用域查找是否有该变量,如果有,直接使用,如果没有就继续去函数函数的外部作用域继续找,一直找到全局作用域;
+
+231.逗号操作符多用于声明多个变量,但除此之外,逗号操作符还可以用于赋值,在用于赋值时,逗号操作符总会返回表达式中的最后一项,
+var num = (1,2,3,4,,6,0)//num = 0;
+
+232.闭包:封闭隔离的空间;
+
+233.函数的四种调用模式:
+1)函数模式
+单独独立调用的就是函数模式
+函数名(参数),其中 this 表示全局对象;任何自调用函数都是函数模式;
+2)方法模式
+方法本身就是函数,但是方法不是单独独立的调用,而是通过一个对象引导调用;
+对象.方法(参数);this表示引导方法的对象,这个对象可以是函数,常规对象,数组等等;   
+3)构造器模式
+使用new来调用函数的方式;this就是new出来的那个新对象;
+如果在构造函数中写上return语句,并紧跟基本类型(null,number,str...),则忽略返回类型,依然返回this;
+如果在构造函数中写上return语句,并紧跟引用类型,那么构造函数返回该引用类型数据,而忽略this;
+如果调用构造函数的时候,函数没有参数,括号可以省略;
+4)上下文模式
+可以实现函数模式和方法模式
+语法:
+A.函数名.call(…)
+B.函数名.apply(…) 参数数组;
+
+234.bind可以使函数与某个对象绑定起来,那么在调用函数的时候,就好像该对象在调用该方法;
+语法:函数.bind(对象);
+function foo() {console.log(this)};
+var obj = {name:”Jack”};
+var newFoo = foo.bind(obj);
+newFoo();//虽然这里看似是函数模式调用,但是由于绑定obj对象,所以this指向obj;
+
+235.Object.prototype的成员
+1)constructor
+2)hasOwnProperty:判断该属性是否为自己提供,而不是继承原型;
+3)isPrototypeOf()
+
+236.包装类型 就是js为了更加方便操作基本数据类型,系统为字符串,数字,布尔准备的对象类型;
+
+237.getter和setter读写器;
+get num(){…};
+set num(){…};
+
+237.字符转换成ASCII方法:`At();
+ASCII转化成字符:fromCharCode();
+var str = “A”;
+var code = str.charCodeAt();//65;
+String.fromCharCode(code);//A;
+String.fromCharCode(0x60+26);//z;
+
+238.var num = 1和num = 1的区别
+前者是变量声明和赋值;
+后者是属性赋值;首先，它会尝试在当前作用域链（如在方法中声明，则当前作用域链代表全局作用域和方法局部作用域）中解析 num； 如果在任何当前作用域链中找到num，则会执行对num属性赋值； 如果没有找到num，它才会在全局对象（即当前作用域链的最顶层对象，如window对象）中创造num属性并赋值。
+注意！它并不是声明了一个全局变量，而是创建了一个全局对象的属性。
+
+“变量声明”跟“创建对象属性”的区别:
+Javascript的变量声明、创建属性以及每个Javascript中的每个属性都有一定的标志说明它们的属性----如只读（ReadOnly）不可枚举（DontEnum）不可删除（DontDelete）等等。
+由于变量声明自带不可删除属性，比较var num = 1 跟 num = 1，前者是变量声明，带不可删除属性，因此无法被删除；后者为全局变量的一个属性，因此可以从全局变量中删除。
+
+239.sort()数组排序:该函数要比较两个值，然后返回一个用于说明这两个值的相对顺序的数字。比较函数应该具有两个参数 a 和 b，其返回值如下：
+若 a 小于 b，在排序后的数组中 a 应该出现在 b 之前，则返回一个小于 0 的值。
+若 a 等于 b，则返回 0。
+若 a 大于 b，则返回一个大于 0 的值。
+即 return a-b;//从小到大排列
+return b-a;//从大到小排列;
+
+如果需要根据一个对象的某个属性值来进行数组的排序那么,假设:
+var data = [{name:’Jack’,age:19},{name:’Rose’,age:20}];
+function sortProperty(property) {
+    return function (obj1, obj2) {
+        var value1 = obj1[property];
+        var value2 = obj2[property];
+        if (value1 < value2) {
+            return -1;
+        } else if (value1 > value2) {
+            return 1;
+        } else {
+            return 0;
+        }
+    };
+}
+data.sort(sortProperty('name'));
+
+240.parseInt(string, radix):可以用来把字符串转化为整型,同时也可以把小数取整,去除小数位;
+radix表示以什么进制解析string参数;
+parseInt("10");		//返回 10
+parseInt("19",10);		//返回 19 (10+9)
+parseInt("11",2);		//返回 3 (2+1)
+parseInt("17",8);		//返回 15 (8+7)
+parseInt("1f",16);		//返回 31 (16+15)
+parseInt("010");		//未定：返回 10 或 8
+parseFloat():对于这个方法来说，第一个出现的小数点是有效字符。如果有两个小数点，第二个小数点将被看作无效的。parseFloat() 会把这个小数点之前的字符转换成数字。这意味着字符串 "11.22.33" 将被解析成 11.22。
+
+241.父盒子设置text-align:center;
+子盒子设置:display:inline-block;
+可以达到水平居中;
+
+242.当使用函数传入多个参数,可以使用apply,传入数组;
+例如:
+var arr = [10,30,19,48,12,57];
+//我要求数组最大值,用Math.max(),此时需要把数组所有元素手动输入,但是如果利用apply会简化代码
+Math.max.apply(null,arr);
+
+243.button标签type默认类型在i.e.是buttton,在其他浏览器是submit,也就是说,如果button在form里添加,那么在其他浏览器中是提交表单的;
+
+244.Math.cos()/Math.sin():参数为弧度;
+2*Math.PI:360度;
+Math.PI:180度;
+角度和弧度转化:
+Math.PI / 180 = 弧度 / 角度;
+
+245.双飞翼和圣杯布局
+
+246.var omg = new Image();//可以直接创建img标签;
+
+247.如果一个元素设置了绝对定位,并且width或者height设置了百分比,那么此时该元素继承的宽或者高是最近的相对定位的元素的宽和高,如果没有,一直向上找,直到继承浏览器的高度;
+
+248.设置cookie:document.cookie=“key=value; key2=value2”;设置多个cookie用分号空格分开;设置cookie过期时间expires = new Date(“2017-10-1”)或者max-age = 30; 一个cookie只能在同级文件夹下访问,除非设置path路径;
+cookie会随着XMLHttpRequest发送ajax一起发送给服务器,所以尽量少设置cookie,可以用localstorage代替;
+
+一个大型网站可以有多个2级域名,为了需要在各个一级域名,二级域名上共享cookie,可以设置damain属性,其值是域名格式的字符串;
+www.baidu.com
+dev.baidu.com
+document.cookie = baidu.com
+
+如果设置了cookie的secure属性,那么只有在https协议下才会发送cookie;
+
+249.encodeURI(“…”):把中文 转化成unicode编码,decodeURI():把unicode编码转化成中文;
+
+250:
+1) <style style="display:block" contentEditable>
+       
+ </style>
+
+2)document.body.contentEditable = true;
+
+3)data:text/html, <html contenteditable>
+
+4)javascript:alert('hello from address bar :)');
+
+5)data:text/html,<h1>Hello, world!</h1>
+
+6)文字模糊:
+p{
+    color: transparent;
+    text-shadow: #111 0 0 5px;
+}
+
+251.在页面中引入less文件时,一要注意引入less.js文件,其次就是<link stylesheet/less>一定要加less,否则效果不出来;
+
+252.requirejs:
+1)定义模块语法:
+	define(“模块名”,[依赖的模块列表],function(依赖项列表)){
+		//定义细节;
+});
+2)第一个参数是模块名,提供了该参数.即为命名模块;
+3)define([‘jquery’,’template’],function($,template){
+	// 在代码中可以直接使用$和temlate;
+})
+4)require([“加载模块”]);如果代码不是很多不需要模块化可以直接在require参数加回调require([“加载模块”],function(参数){…});
+
+5)一般情况下,html所在的文件夹就是模块默认搜索路径,在script标签加入data-main自定义属性,来说明默认加载的模块;
+
+6)require.config({
+    baseUrl:”./lib”;//设置基路径,即在所有路径前面加上该路径;
+    paths:{
+   	短名字:长名字//用短代替长;
+   }
+})
+
+7)命名模块的使用方法:
+使用命名模块有两种方法:
+A.使得文件的名字与模块中定义的名字一样,而且文件必须在当前搜索文件夹中(少用);
+B.配置短名字的时候必须与模块中定义的名字相同(推荐);
+
+8)配置非模块:
+require.config({
+   shim:{
+     itcast:{
+	exports:”name”
+    },
+      bootstrap:{
+	deps:{
+		
+      }
+    }
+  }
+});
+
+253.textarea标签禁止拉动:
+resize:none;
+
+254.改变input的placeholder占位文本的颜色:
+添加伪类
+::webkit-input-placeholder:{
+  color:white;
+}
+
+255.浏览器内核:
+IE:trident;
+Safari:webkit;
+FireFox:gecko;
+Opera:之前是presto,现在是blink;
+Chrome:blink(基于webkit,与火狐一起开发出来);
+
+256.在js中除了数字满足下列表达式,返回true;其他都返回false;
+value - 0 + “” === value + “”;
+
+257.把伪数组转成数组:
+例arguments:
+方法一:var arr = Array.from(arguments)://利用es6的新方法,from()把伪数组转换成数组;
+方法二:var arr = Array.prototype.slice.apply(arguments);
+方法三:遍历arguments,把其中的每一个元素都push到一个新数组中//太麻烦,不建议使用;
+方法四:[…arguments];
+
+258.input的单选框必须name属性值一样,才能造成单选的效果
+
+259.懒加载实现
+1)首先，不要将图片地址放到src属性中，而是放到其它属性(data-original)中。
+2)页面加载完成后，根据scrollTop判断图片是否在用户的视野内，如果在，则将data-original属性中的值取出存放到src属性中。
+3)在滚动事件中重复判断图片是否进入视野，如果进入，则将data-original属性中的值取出存放到src属性中。
+
+260.当遍历数组元素删除相应的元素时,因为删除以后,导致元素索引的改变,会造成元素删除不完全
+处理方法:从后往前删除;
+
+261.animate.css必须应用在块级元素,不能用于行内元素
+
+262.定时器(setTimeout,setInterval)里的this默认指向window;
+
+263.扩展运算符将一个数组转为用逗号分隔的参数序列
+
+264.domObj.getBoundingClientRect()//DOMRect 对象包含了一组用于描述边框的只读属性——left、top、right和bottom，单位为像素。除了 width 和 height 外的属性都是相对于视口的左上角位置而言的。
